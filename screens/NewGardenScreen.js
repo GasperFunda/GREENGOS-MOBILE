@@ -1,13 +1,14 @@
 import React from 'react';
-import Images from '../config/Images';
+import * as GlobalStyles from '../GlobalStyles.js';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import openImagePickerUtil from '../utils/openImagePicker';
 import {
   Button,
-  CheckboxRow,
   Circle,
   Icon,
+  NumberInput,
+  Picker,
   ScreenContainer,
   Touchable,
   withTheme,
@@ -28,7 +29,20 @@ const NewGardenScreen = props => {
   const { navigation } = props;
 
   const [checkboxRowValue, setCheckboxRowValue] = React.useState('');
+  const [numberInput2Value, setNumberInput2Value] = React.useState('');
+  const [numberInputValue, setNumberInputValue] = React.useState('');
+  const [pickerValue, setPickerValue] = React.useState([
+    { label: 'Active', value: 'active' },
+    { label: 'Needs work', value: 'Needs work' },
+    { label: 'Empty', value: 'Empty' },
+  ]);
+  const [statusVariables, setStatusVariables] = React.useState([
+    { label: 'Active', value: 'active' },
+    { label: 'Needs work', value: 'Needs work' },
+    { label: 'Empty', value: 'Empty' },
+  ]);
   const [textAreaValue, setTextAreaValue] = React.useState('');
+  const [textInputValue, setTextInputValue] = React.useState('');
 
   return (
     <ScreenContainer hasSafeArea={true} scrollable={false}>
@@ -84,7 +98,7 @@ const NewGardenScreen = props => {
             dimensions.width
           )}
         >
-          {'New Post'}
+          {'New Garden'}
         </Text>
         <View
           style={StyleSheet.applyWidth(
@@ -100,6 +114,50 @@ const NewGardenScreen = props => {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={true} bounces={true}>
+        <View
+          style={StyleSheet.applyWidth(
+            {
+              alignItems: 'center',
+              flexDirection: 'row',
+              flexWrap: 'nowrap',
+              justifyContent: 'flex-start',
+              marginLeft: 20,
+              marginRight: 20,
+            },
+            dimensions.width
+          )}
+        >
+          <Text
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                marginRight: 5,
+              }),
+              dimensions.width
+            )}
+          >
+            {'Garden name:'}
+          </Text>
+          <TextInput
+            onChangeText={newTextInputValue => {
+              const textInputValue = newTextInputValue;
+              try {
+                setTextInputValue(newTextInputValue);
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(
+                GlobalStyles.TextInputStyles(theme)['Text Input'],
+                { width: 300 }
+              ),
+              dimensions.width
+            )}
+            value={textInputValue}
+            autoCapitalize={'none'}
+            placeholder={'Enter a value...'}
+          />
+        </View>
         {/* Post Content */}
         <View
           style={StyleSheet.applyWidth(
@@ -142,7 +200,7 @@ const NewGardenScreen = props => {
                   dimensions.width
                 )}
               >
-                <Circle size={30} bgColor={theme.colors['Social Orange']}>
+                <Circle size={30} bgColor={theme.colors['App Green']}>
                   <Icon
                     name={'AntDesign/plus'}
                     size={16}
@@ -160,35 +218,6 @@ const NewGardenScreen = props => {
               source={{ uri: 'https://picsum.photos/60' }}
             />
           </View>
-          <TextInput
-            onChangeText={newTextAreaValue => {
-              try {
-                setTextAreaValue(newTextAreaValue);
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-            style={StyleSheet.applyWidth(
-              {
-                borderRadius: 8,
-                color: theme.colors['Custom Color_35'],
-                fontFamily: 'Poppins_500Medium',
-                fontSize: 18,
-                height: 120,
-                marginTop: 20,
-                paddingBottom: 8,
-                paddingTop: 8,
-              },
-              dimensions.width
-            )}
-            value={textAreaValue}
-            placeholder={'What you want to say?'}
-            editable={true}
-            textAlignVertical={'top'}
-            multiline={true}
-            numberOfLines={4}
-            placeholderTextColor={theme.colors['Custom Color_35']}
-          />
         </View>
         {/* Actions */}
         <View
@@ -224,221 +253,183 @@ const NewGardenScreen = props => {
               </Text>
             </Touchable>
           </View>
-
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                borderBottomWidth: 1,
-                borderColor: theme.colors['Custom Color_34'],
-                height: 44,
-                justifyContent: 'center',
-              },
-              dimensions.width
-            )}
-          >
-            <Touchable>
-              <Text
-                style={StyleSheet.applyWidth(
-                  {
-                    color: theme.colors['Custom Color'],
-                    fontFamily: 'Poppins_400Regular',
-                    fontSize: 12,
-                    lineHeight: 44,
-                  },
-                  dimensions.width
-                )}
-              >
-                {'Add music'}
-              </Text>
-            </Touchable>
-          </View>
-
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                borderBottomWidth: 1,
-                borderColor: theme.colors['Custom Color_34'],
-                height: 44,
-                justifyContent: 'center',
-              },
-              dimensions.width
-            )}
-          >
-            <Touchable>
-              <Text
-                style={StyleSheet.applyWidth(
-                  {
-                    color: theme.colors['Custom Color'],
-                    fontFamily: 'Poppins_400Regular',
-                    fontSize: 12,
-                    lineHeight: 44,
-                  },
-                  dimensions.width
-                )}
-              >
-                {'Feeling or activity'}
-              </Text>
-            </Touchable>
-          </View>
         </View>
-        {/* Share Options */}
+
         <View
           style={StyleSheet.applyWidth(
-            { marginTop: 40, paddingLeft: 20 },
+            {
+              alignItems: 'center',
+              flexDirection: 'row',
+              flexWrap: 'nowrap',
+              justifyContent: 'flex-start',
+              marginLeft: 20,
+              marginRight: 20,
+            },
             dimensions.width
           )}
         >
           <Text
             style={StyleSheet.applyWidth(
-              {
-                color: theme.colors['Custom Color_30'],
-                fontFamily: 'Poppins_400Regular',
-                fontSize: 12,
-                marginBottom: 10,
-              },
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                marginRight: 5,
+              }),
               dimensions.width
             )}
           >
-            {'Share to'}
+            {'Garden status:'}
           </Text>
-
+          <Picker
+            style={StyleSheet.applyWidth({ height: 40 }, dimensions.width)}
+            options={pickerValue}
+            placeholder={'Select an option'}
+            leftIconMode={'inset'}
+            type={'solid'}
+            iconSize={24}
+            autoDismissKeyboard={true}
+          />
           <View
             style={StyleSheet.applyWidth(
               {
                 alignItems: 'center',
                 flexDirection: 'row',
-                justifyContent: 'space-between',
+                flexWrap: 'nowrap',
+                justifyContent: 'flex-start',
+                marginLeft: 20,
+                marginRight: 20,
               },
               dimensions.width
             )}
           >
-            <Image
+            <Text
               style={StyleSheet.applyWidth(
-                { height: 24, width: 24 },
+                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                  marginRight: 5,
+                }),
                 dimensions.width
               )}
-              resizeMode={'cover'}
-              source={Images.Fbicon}
+            >
+              {'Garden name:'}
+            </Text>
+            <TextInput
+              onChangeText={newTextInputValue => {
+                const textInputValue = newTextInputValue;
+                try {
+                  setTextInputValue(newTextInputValue);
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              style={StyleSheet.applyWidth(
+                StyleSheet.compose(
+                  GlobalStyles.TextInputStyles(theme)['Text Input'],
+                  { width: 300 }
+                ),
+                dimensions.width
+              )}
+              autoCapitalize={'none'}
+              placeholder={'Enter a value...'}
+              value={textInputValue}
             />
-            <View style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}>
-              <CheckboxRow
-                onPress={newCheckboxRowValue => {
-                  try {
-                    setCheckboxRowValue(newCheckboxRowValue);
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }}
-                style={StyleSheet.applyWidth(
-                  {
-                    color: theme.colors['Custom Color'],
-                    fontFamily: 'Poppins_400Regular',
-                    fontSize: 12,
-                    minHeight: 50,
-                  },
-                  dimensions.width
-                )}
-                value={checkboxRowValue}
-                label={'Facebook'}
-                uncheckedColor={theme.colors['Custom Color_34']}
-                color={theme.colors['Social Orange']}
-              />
-            </View>
           </View>
+        </View>
 
-          <View
+        <View
+          style={StyleSheet.applyWidth(
+            {
+              alignItems: 'center',
+              flexDirection: 'row',
+              flexWrap: 'nowrap',
+              justifyContent: 'flex-start',
+              marginLeft: 20,
+              marginRight: 20,
+            },
+            dimensions.width
+          )}
+        >
+          <Text
             style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              },
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                marginRight: 5,
+              }),
               dimensions.width
             )}
           >
-            <Image
-              style={StyleSheet.applyWidth(
-                { height: 24, width: 24 },
-                dimensions.width
-              )}
-              resizeMode={'cover'}
-              source={Images.Insta}
-            />
-            <View style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}>
-              <CheckboxRow
-                onPress={newCheckboxRowValue => {
-                  try {
-                    setCheckboxRowValue(newCheckboxRowValue);
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }}
-                style={StyleSheet.applyWidth(
-                  {
-                    color: theme.colors['Custom Color'],
-                    fontFamily: 'Poppins_400Regular',
-                    fontSize: 12,
-                    minHeight: 50,
-                  },
-                  dimensions.width
-                )}
-                label={'Instagram'}
-                uncheckedColor={theme.colors['Custom Color_34']}
-                color={theme.colors['Social Orange']}
-              />
-            </View>
-          </View>
+            {'Garden width (m):'}
+          </Text>
+          {/* Number Input 2 */}
+          <NumberInput
+            onChangeText={newNumberInput2Value => {
+              const numberInputValue = newNumberInput2Value;
+              try {
+                setNumberInput2Value(newNumberInput2Value);
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(
+                GlobalStyles.NumberInputStyles(theme)['Number Input'],
+                { width: 300 }
+              ),
+              dimensions.width
+            )}
+            value={numberInput2Value}
+            editable={true}
+            placeholder={'Enter a number...'}
+          />
+        </View>
 
-          <View
+        <View
+          style={StyleSheet.applyWidth(
+            {
+              alignItems: 'center',
+              flexDirection: 'row',
+              flexWrap: 'nowrap',
+              justifyContent: 'flex-start',
+              marginLeft: 20,
+              marginRight: 20,
+            },
+            dimensions.width
+          )}
+        >
+          <Text
             style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              },
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                marginRight: 5,
+              }),
               dimensions.width
             )}
           >
-            <Image
-              style={StyleSheet.applyWidth(
-                { height: 24, width: 24 },
-                dimensions.width
-              )}
-              resizeMode={'cover'}
-              source={Images.Twitter}
-            />
-            <View style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}>
-              <CheckboxRow
-                onPress={newCheckboxRowValue => {
-                  try {
-                    setCheckboxRowValue(newCheckboxRowValue);
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }}
-                style={StyleSheet.applyWidth(
-                  {
-                    color: theme.colors['Custom Color'],
-                    fontFamily: 'Poppins_400Regular',
-                    fontSize: 12,
-                    minHeight: 50,
-                  },
-                  dimensions.width
-                )}
-                label={'Twitter'}
-                uncheckedColor={theme.colors['Custom Color_34']}
-                color={theme.colors['Social Orange']}
-              />
-            </View>
-          </View>
+            {'Garden length (m):'}
+          </Text>
+          <NumberInput
+            onChangeText={newNumberInputValue => {
+              const numberInputValue = newNumberInputValue;
+              try {
+                setNumberInputValue(newNumberInputValue);
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(
+                GlobalStyles.NumberInputStyles(theme)['Number Input'],
+                { width: 300 }
+              ),
+              dimensions.width
+            )}
+            value={numberInputValue}
+            editable={true}
+            placeholder={'Enter a number...'}
+          />
         </View>
         {/* Post Now */}
         <Button
           style={StyleSheet.applyWidth(
             {
-              backgroundColor: theme.colors['Social Orange'],
+              backgroundColor: theme.colors['App Green'],
               borderRadius: 8,
-              color: theme.colors['Custom Color'],
+              color: theme.colors['Custom Color_15'],
               fontFamily: 'Poppins_600SemiBold',
               height: 50,
               marginBottom: 20,
@@ -449,7 +440,7 @@ const NewGardenScreen = props => {
             },
             dimensions.width
           )}
-          title={'Post Now'}
+          title={'Create Garden'}
         />
       </ScrollView>
     </ScreenContainer>
