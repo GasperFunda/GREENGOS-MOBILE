@@ -118,7 +118,7 @@ const EnableLocationScreen = props => {
         <Button
           onPress={() => {
             try {
-              navigation.navigate('MapViewScreen');
+              navigation.navigate('RootNavigator');
             } catch (err) {
               console.error(err);
             }

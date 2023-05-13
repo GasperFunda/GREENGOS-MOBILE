@@ -390,5 +390,35 @@ export default {
       letterSpacing: 0,
       lineHeight: 22,
     },
+    custom14: {
+      ...systemWeights.regular,
+      fontSize: 24,
+      letterSpacing: 1,
+      lineHeight: 16,
+    },
+    custom15: {
+      ...systemWeights.regular,
+      fontSize: 16,
+      letterSpacing: 1,
+      lineHeight: 16,
+    },
+    custom16: {
+      ...systemWeights.regular,
+      fontSize: 12,
+      letterSpacing: 1,
+      lineHeight: 16,
+    },
+    custom17: {
+      ...systemWeights.semibold,
+      fontSize: 12,
+      letterSpacing: 1,
+      lineHeight: 16,
+    },
+    custom18: {
+      ...systemWeights.semibold,
+      fontSize: 16,
+      letterSpacing: 1,
+      lineHeight: 16,
+    },
   },
 };

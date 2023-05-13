@@ -18,6 +18,7 @@ import { useIsFocused } from '@react-navigation/native';
 import {
   ActivityIndicator,
   FlatList,
+  Image,
   ImageBackground,
   Text,
   View,
@@ -40,6 +41,64 @@ const GardenDetailViewScreen_6Fi5ZXwW = props => {
       hasSafeArea={false}
       scrollable={true}
     >
+      {/* BackHeader */}
+      <View
+        style={StyleSheet.applyWidth(
+          GlobalStyles.ViewStyles(theme)['BackHeader'],
+          dimensions.width
+        )}
+      >
+        {/* Back */}
+        <View
+          style={StyleSheet.applyWidth(
+            {
+              alignItems: 'center',
+              height: 48,
+              justifyContent: 'center',
+              width: 48,
+            },
+            dimensions.width
+          )}
+        >
+          <Touchable
+            onPress={() => {
+              try {
+                navigation.goBack();
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+          >
+            <Icon size={24} name={'AntDesign/arrowleft'} />
+          </Touchable>
+        </View>
+        {/* Screen Heading */}
+        <Text
+          style={StyleSheet.applyWidth(
+            {
+              color: theme.colors.strong,
+              fontFamily: 'Poppins_400Regular',
+              fontSize: 15,
+            },
+            dimensions.width
+          )}
+        >
+          {'Garden details'}
+        </Text>
+        {/* Blank */}
+        <View
+          style={StyleSheet.applyWidth(
+            {
+              alignItems: 'center',
+              height: 48,
+              justifyContent: 'center',
+              width: 48,
+            },
+            dimensions.width
+          )}
+        />
+      </View>
+
       <APIApi.FetchFetchGardenByIdGET
         method={'GET'}
         garden_id={props.route?.params?.garden_id ?? 1}
@@ -219,6 +278,69 @@ const GardenDetailViewScreen_6Fi5ZXwW = props => {
                     </View>
                   </View>
                   <Spacer top={12} right={8} bottom={12} left={8} />
+                  {/* Crops percent list */}
+                  <FlatList
+                    data={(fetchData && fetchData[0])?.crops}
+                    listKey={'1ZoChYk1'}
+                    keyExtractor={cropsPercentListData =>
+                      cropsPercentListData?.id ||
+                      cropsPercentListData?.uuid ||
+                      JSON.stringify(cropsPercentListData)
+                    }
+                    renderItem={({ item }) => {
+                      const cropsPercentListData = item;
+                      return (
+                        <View
+                          style={StyleSheet.applyWidth(
+                            {
+                              alignItems: 'center',
+                              flexDirection: 'row',
+                              justifyContent: 'flex-start',
+                            },
+                            dimensions.width
+                          )}
+                        >
+                          <Text
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['Text'],
+                                {
+                                  fontFamily: 'Poppins_400Regular',
+                                  fontSize: 18,
+                                  marginLeft: 20,
+                                  marginRight: 20,
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {cropsPercentListData?.crop}
+                            {':'}
+                          </Text>
+                          <Spacer top={8} right={8} bottom={8} left={8} />
+                          {/* Text 2 */}
+                          <Text
+                            style={StyleSheet.applyWidth(
+                              StyleSheet.compose(
+                                GlobalStyles.TextStyles(theme)['Text'],
+                                {
+                                  fontFamily: 'Poppins_400Regular',
+                                  fontSize: 18,
+                                }
+                              ),
+                              dimensions.width
+                            )}
+                          >
+                            {cropsPercentListData?.percent}
+                          </Text>
+                        </View>
+                      );
+                    }}
+                    numColumns={1}
+                    onEndReachedThreshold={0.5}
+                    showsHorizontalScrollIndicator={true}
+                    showsVerticalScrollIndicator={true}
+                  />
                   {/* Spacer 2 */}
                   <Spacer top={8} right={8} bottom={8} left={8} />
                   <View
@@ -268,6 +390,20 @@ const GardenDetailViewScreen_6Fi5ZXwW = props => {
                   </View>
                   {/* Spacer 3 */}
                   <Spacer top={8} right={8} bottom={8} left={8} />
+                  {/* View 2 */}
+                  <View>
+                    <Image
+                      style={StyleSheet.applyWidth(
+                        GlobalStyles.ImageStyles(theme)['Image'],
+                        dimensions.width
+                      )}
+                      resizeMode={'cover'}
+                      source={{
+                        uri: `${(fetchData && fetchData[0])?.layout_image}`,
+                      }}
+                    />
+                  </View>
+                  <Spacer top={8} right={8} bottom={8} left={8} />
                 </View>
               </View>
               <View />
@@ -275,20 +411,6 @@ const GardenDetailViewScreen_6Fi5ZXwW = props => {
           );
         }}
       </APIApi.FetchFetchGardenByIdGET>
-      {/* Text 2 */}
-      <Text
-        style={StyleSheet.applyWidth(
-          StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-            alignSelf: 'center',
-            fontFamily: 'Poppins_600SemiBold',
-            fontSize: 20,
-          }),
-          dimensions.width
-        )}
-      >
-        {'Weather forecast'}
-      </Text>
-
       <Text
         style={StyleSheet.applyWidth(
           StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
@@ -337,10 +459,9 @@ const GardenDetailViewScreen_6Fi5ZXwW = props => {
                     <Touchable
                       onPress={() => {
                         try {
-                          navigation.navigate(
-                            'GardenDetailViewScreen_6Fi5ZXwW',
-                            { garden_id: gardenListData?.id }
-                          );
+                          navigation.navigate('GardenBedDetailViewScreen', {
+                            garden_id: gardenListData?.id,
+                          });
                         } catch (err) {
                           console.error(err);
                         }
@@ -361,7 +482,17 @@ const GardenDetailViewScreen_6Fi5ZXwW = props => {
                           dimensions.width
                         )}
                       >
-                        <Touchable>
+                        <Touchable
+                          onPress={() => {
+                            try {
+                              navigation.navigate('GardenBedDetailViewScreen', {
+                                garden_id: gardenListData?.id,
+                              });
+                            } catch (err) {
+                              console.error(err);
+                            }
+                          }}
+                        >
                           <View
                             style={StyleSheet.applyWidth(
                               { height: 240 },
@@ -482,32 +613,6 @@ const GardenDetailViewScreen_6Fi5ZXwW = props => {
                               dimensions.width
                             )}
                           >
-                            <View
-                              style={StyleSheet.applyWidth(
-                                { alignItems: 'center', flexDirection: 'row' },
-                                dimensions.width
-                              )}
-                            >
-                              <Icon
-                                size={24}
-                                color={theme.colors['App Green']}
-                                name={'MaterialCommunityIcons/numeric'}
-                              />
-                              <Spacer right={2} left={2} />
-                              <Text
-                                style={StyleSheet.applyWidth(
-                                  {
-                                    color: theme.colors.medium,
-                                    fontFamily: 'Poppins_400Regular',
-                                    fontSize: 12,
-                                  },
-                                  dimensions.width
-                                )}
-                              >
-                                {gardenListData?.crops?.length}
-                                {' crops'}
-                              </Text>
-                            </View>
                             <Spacer top={8} right={8} bottom={8} left={8} />
                             <View
                               style={StyleSheet.applyWidth(

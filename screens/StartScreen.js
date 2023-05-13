@@ -230,7 +230,7 @@ const StartScreen = props => {
             <Button
               onPress={() => {
                 try {
-                  navigation.navigate('GardenListScreen');
+                  navigation.navigate('BottomTabNavigator');
                 } catch (err) {
                   console.error(err);
                 }

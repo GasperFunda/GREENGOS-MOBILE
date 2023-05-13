@@ -78,9 +78,9 @@ function BottomTabNavigator() {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        activeTintColor: theme.colors['Custom Color_38'],
-        activeBackgroundColor: theme.colors['Secondary'],
-        inactiveBackgroundColor: theme.colors['BG Gray'],
+        activeTintColor: theme.colors['Background'],
+        inactiveTintColor: theme.colors['App Green'],
+        activeBackgroundColor: theme.colors['App Green'],
         style: {
           backgroundColor: theme.colors['Background'],
           borderTopColor: 'transparent',
@@ -88,32 +88,32 @@ function BottomTabNavigator() {
       }}
     >
       <Tab.Screen
-        name="LoginScreen"
-        component={LoginScreen}
+        name="GardenListScreen"
+        component={GardenListScreen}
         options={{
-          title: 'Login',
+          title: 'Garden List',
           tabBarIcon: ({ focused, color }) => (
             <Icon
-              name="Entypo/home"
+              name="Ionicons/rose"
               size={25}
               color={
-                focused ? theme.colors['Strong'] : theme.colors['App Green']
+                focused ? theme.colors['Background'] : theme.colors['App Green']
               }
             />
           ),
         }}
       />
       <Tab.Screen
-        name="SignUpScreen"
-        component={SignUpScreen}
+        name="CropListScreen"
+        component={CropListScreen}
         options={{
-          title: 'Sign Up',
+          title: 'Crop List',
           tabBarIcon: ({ focused, color }) => (
             <Icon
-              name="AntDesign/logout"
+              name="FontAwesome/tree"
               size={25}
               color={
-                focused ? theme.colors['Strong'] : theme.colors['App Green']
+                focused ? theme.colors['Background'] : theme.colors['App Green']
               }
             />
           ),
@@ -126,19 +126,26 @@ function BottomTabNavigator() {
 export default function RootAppNavigator() {
   return (
     <NavigationContainer linking={LinkingConfiguration}>
-      <Stack.Navigator>
+      <Stack.Navigator headerMode="none">
+        <Stack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+          options={{
+            title: 'Login',
+          }}
+        />
+        <Stack.Screen
+          name="SignUpScreen"
+          component={SignUpScreen}
+          options={{
+            title: 'Sign Up',
+          }}
+        />
         <Stack.Screen
           name="StartScreen"
           component={StartScreen}
           options={{
             title: 'Start Screen',
-          }}
-        />
-        <Stack.Screen
-          name="GardenListScreen"
-          component={GardenListScreen}
-          options={{
-            title: 'Garden List',
           }}
         />
         <Stack.Screen
@@ -181,13 +188,6 @@ export default function RootAppNavigator() {
           component={CropDetailViewScreen}
           options={{
             title: 'Crop Detail View',
-          }}
-        />
-        <Stack.Screen
-          name="CropListScreen"
-          component={CropListScreen}
-          options={{
-            title: 'Crop List',
           }}
         />
         <Stack.Screen

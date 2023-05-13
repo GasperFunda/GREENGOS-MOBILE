@@ -279,7 +279,10 @@ const NewGardenScreen = props => {
             {'Garden status:'}
           </Text>
           <Picker
-            style={StyleSheet.applyWidth({ height: 40 }, dimensions.width)}
+            style={StyleSheet.applyWidth(
+              { height: 40, marginLeft: 5, width: 250 },
+              dimensions.width
+            )}
             options={pickerValue}
             placeholder={'Select an option'}
             leftIconMode={'inset'}
@@ -287,50 +290,6 @@ const NewGardenScreen = props => {
             iconSize={24}
             autoDismissKeyboard={true}
           />
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                flexDirection: 'row',
-                flexWrap: 'nowrap',
-                justifyContent: 'flex-start',
-                marginLeft: 20,
-                marginRight: 20,
-              },
-              dimensions.width
-            )}
-          >
-            <Text
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-                  marginRight: 5,
-                }),
-                dimensions.width
-              )}
-            >
-              {'Garden name:'}
-            </Text>
-            <TextInput
-              onChangeText={newTextInputValue => {
-                const textInputValue = newTextInputValue;
-                try {
-                  setTextInputValue(newTextInputValue);
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextInputStyles(theme)['Text Input'],
-                  { width: 300 }
-                ),
-                dimensions.width
-              )}
-              autoCapitalize={'none'}
-              placeholder={'Enter a value...'}
-              value={textInputValue}
-            />
-          </View>
         </View>
 
         <View

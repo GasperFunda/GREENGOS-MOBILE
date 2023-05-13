@@ -67,6 +67,14 @@ const GardenListScreen = props => {
           {'Create a garden'}
         </Text>
         <IconButton
+          onPress={() => {
+            try {
+              navigation.navigate('NewGardenScreen');
+            } catch (err) {
+              console.error(err);
+            }
+          }}
+          style={StyleSheet.applyWidth({ marginTop: 20 }, dimensions.width)}
           size={32}
           icon={'AntDesign/pluscircle'}
           color={theme.colors['App Green']}
@@ -124,7 +132,18 @@ const GardenListScreen = props => {
                         dimensions.width
                       )}
                     >
-                      <Touchable>
+                      <Touchable
+                        onPress={() => {
+                          try {
+                            navigation.navigate(
+                              'GardenDetailViewScreen_6Fi5ZXwW',
+                              { garden_id: listData?.id }
+                            );
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
+                      >
                         <View
                           style={StyleSheet.applyWidth(
                             { height: 240 },

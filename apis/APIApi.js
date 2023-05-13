@@ -118,7 +118,7 @@ export const FetchFetchCropByIdGET = ({
 };
 
 export const fetchCropsGETStatusAndText = Constants =>
-  fetch(`https://itboyrbpneggaqiewgem.supabase.co/rest/v1/crops`, {
+  fetch(`https://itboyrbpneggaqiewgem.supabase.co/rest/v1/crops?order=id.asc`, {
     headers: {
       Accept: 'application/json',
       Authorization:
@@ -152,17 +152,20 @@ export const useFetchCropsGET = () => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
 
-  return useFetch(`https://itboyrbpneggaqiewgem.supabase.co/rest/v1/crops`, {
-    depends: [isFocused],
-    headers: {
-      Accept: 'application/json',
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
-      'Content-Type': 'application/json',
-      apikey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
-    },
-  });
+  return useFetch(
+    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/crops?order=id.asc`,
+    {
+      depends: [isFocused],
+      headers: {
+        Accept: 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+        'Content-Type': 'application/json',
+        apikey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+      },
+    }
+  );
 };
 
 export const FetchFetchCropsGET = ({
@@ -179,17 +182,20 @@ export const FetchFetchCropsGET = ({
     isLoading: loading,
     data,
     error,
-  } = useFetch(`https://itboyrbpneggaqiewgem.supabase.co/rest/v1/crops`, {
-    depends: [isFocused],
-    headers: {
-      Accept: 'application/json',
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
-      'Content-Type': 'application/json',
-      apikey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
-    },
-  });
+  } = useFetch(
+    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/crops?order=id.asc`,
+    {
+      depends: [isFocused],
+      headers: {
+        Accept: 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+        'Content-Type': 'application/json',
+        apikey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+      },
+    }
+  );
 
   React.useEffect(() => {
     if (!prevIsFocused && isFocused) {
@@ -406,7 +412,7 @@ export const fetchSubgardenByGardenIdGETStatusAndText = (
   { garden_id }
 ) =>
   fetch(
-    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/subgarden?garden_id=eq.${
+    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/subgarden_crops?garden_id=eq.${
       garden_id ?? ''
     }`,
     {
@@ -447,7 +453,7 @@ export const useFetchSubgardenByGardenIdGET = ({ garden_id }) => {
   const isFocused = useIsFocused();
 
   return useFetch(
-    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/subgarden?garden_id=eq.${
+    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/subgarden_crops?garden_id=eq.${
       garden_id ?? ''
     }`,
     {
@@ -480,7 +486,7 @@ export const FetchFetchSubgardenByGardenIdGET = ({
     data,
     error,
   } = useFetch(
-    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/subgarden?garden_id=eq.${
+    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/subgarden_crops?garden_id=eq.${
       garden_id ?? ''
     }`,
     {
@@ -524,7 +530,7 @@ export const FetchFetchSubgardenByGardenIdGET = ({
 
 export const fetchSubgardenByIdGETStatusAndText = (Constants, { id }) =>
   fetch(
-    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/subgarden?id=eq.${
+    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/subgarden_crops?id=eq.${
       id ?? ''
     }`,
     {
@@ -565,7 +571,7 @@ export const useFetchSubgardenByIdGET = ({ id }) => {
   const isFocused = useIsFocused();
 
   return useFetch(
-    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/subgarden?id=eq.${
+    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/subgarden_crops?id=eq.${
       id ?? ''
     }`,
     {
@@ -598,7 +604,7 @@ export const FetchFetchSubgardenByIdGET = ({
     data,
     error,
   } = useFetch(
-    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/subgarden?id=eq.${
+    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/subgarden_crops?id=eq.${
       id ?? ''
     }`,
     {

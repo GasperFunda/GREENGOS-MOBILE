@@ -154,7 +154,18 @@ const CropListScreen = props => {
                                 dimensions.width
                               )}
                             >
-                              <Touchable>
+                              <Touchable
+                                onPress={() => {
+                                  try {
+                                    navigation.navigate(
+                                      'CropDetailViewScreen',
+                                      { crop_id: listData?.id }
+                                    );
+                                  } catch (err) {
+                                    console.error(err);
+                                  }
+                                }}
+                              >
                                 {/* Record Item Frame */}
                                 <View
                                   style={StyleSheet.applyWidth(
@@ -198,7 +209,9 @@ const CropListScreen = props => {
                                         dimensions.width
                                       )}
                                       resizeMode={'cover'}
-                                      source={{ uri: `${listData?.image}` }}
+                                      source={{
+                                        uri: `${listData?.image_icon}`,
+                                      }}
                                     />
                                   </View>
                                   {/* Middle Frame */}
@@ -225,7 +238,8 @@ const CropListScreen = props => {
                                         style={StyleSheet.applyWidth(
                                           {
                                             color: theme.colors.strong,
-                                            fontFamily: 'OpenSans_700Bold',
+                                            fontFamily: 'Poppins_700Bold',
+                                            fontSize: 18,
                                             paddingBottom: 9,
                                           },
                                           dimensions.width

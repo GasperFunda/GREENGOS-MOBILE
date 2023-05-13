@@ -4,7 +4,6 @@ import * as StyleSheet from '../utils/StyleSheet';
 import {
   Button,
   Divider,
-  Icon,
   ScreenContainer,
   Touchable,
   withTheme,
@@ -18,6 +17,7 @@ const LoginScreen = props => {
   const { navigation } = props;
 
   const [textInputValue, setTextInputValue] = React.useState('');
+  const [textInputValue2, setTextInputValue2] = React.useState('');
 
   return (
     <ScreenContainer
@@ -29,60 +29,6 @@ const LoginScreen = props => {
       hasSafeArea={true}
       hasTopSafeArea={false}
     >
-      {/* Header */}
-      <View
-        style={StyleSheet.applyWidth(
-          {
-            alignItems: 'center',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          },
-          dimensions.width
-        )}
-      >
-        {/* Back */}
-        <View
-          style={StyleSheet.applyWidth(
-            {
-              alignItems: 'center',
-              height: 48,
-              justifyContent: 'center',
-              width: 48,
-            },
-            dimensions.width
-          )}
-        >
-          <Touchable>
-            <Icon size={24} name={'AntDesign/arrowleft'} />
-          </Touchable>
-        </View>
-        {/* Screen Heading */}
-        <Text
-          style={StyleSheet.applyWidth(
-            {
-              color: theme.colors.strong,
-              fontFamily: 'Poppins_400Regular',
-              fontSize: 15,
-            },
-            dimensions.width
-          )}
-        >
-          {'Login'}
-        </Text>
-        {/* Blank */}
-        <View
-          style={StyleSheet.applyWidth(
-            {
-              alignItems: 'center',
-              height: 48,
-              justifyContent: 'center',
-              width: 48,
-            },
-            dimensions.width
-          )}
-        />
-      </View>
-
       <View
         style={StyleSheet.applyWidth(
           { flex: 1, paddingLeft: 30, paddingRight: 30, paddingTop: 20 },
@@ -141,7 +87,6 @@ const LoginScreen = props => {
         <TextInput
           onChangeText={newPasswordValue => {
             try {
-              setTextInputValue(newPasswordValue);
             } catch (err) {
               console.error(err);
             }

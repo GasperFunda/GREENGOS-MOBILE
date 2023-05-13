@@ -2,6 +2,25 @@ import * as StyleSheet from './utils/StyleSheet';
 
 import Breakpoints from './utils/Breakpoints';
 
+export const ViewStyles = theme =>
+  StyleSheet.create({
+    BackHeader: {
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+    'BackHeader 2': {
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+    'BackHeader 3': {
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+  });
+
 export const ButtonStyles = theme =>
   StyleSheet.create({
     Button: {
@@ -66,3 +85,9 @@ export const TextInputStyles = theme =>
       paddingTop: 8,
     },
   });
+
+export const VideoStyles = theme =>
+  StyleSheet.create({ Video: { height: 215 } });
+
+export const YoutubePlayerStyles = theme =>
+  StyleSheet.create({ 'Youtube Player': { height: 250 } });
