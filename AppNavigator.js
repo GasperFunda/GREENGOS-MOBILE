@@ -8,9 +8,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import theme from './themes/DraftbitTheme.js';
 import LinkingConfiguration from './LinkingConfiguration.js';
 
-import BlankScreen from './screens/BlankScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
+import StartScreen from './screens/StartScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -70,13 +70,6 @@ export default function RootAppNavigator() {
     <NavigationContainer linking={LinkingConfiguration}>
       <Stack.Navigator>
         <Stack.Screen
-          name="BlankScreen"
-          component={BlankScreen}
-          options={{
-            title: 'Blank',
-          }}
-        />
-        <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
           options={{
@@ -88,6 +81,13 @@ export default function RootAppNavigator() {
           component={SignUpScreen}
           options={{
             title: 'Sign Up',
+          }}
+        />
+        <Stack.Screen
+          name="StartScreen"
+          component={StartScreen}
+          options={{
+            title: 'Start Screen',
           }}
         />
       </Stack.Navigator>

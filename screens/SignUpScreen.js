@@ -1,11 +1,11 @@
 import React from 'react';
+import * as GlobalStyles from '../GlobalStyles.js';
 import Images from '../config/Images';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import { Button, ScreenContainer, Touchable, withTheme } from '@draftbit/ui';
 import {
   Image,
-  ImageBackground,
   Text,
   TextInput,
   View,
@@ -23,7 +23,7 @@ const SignUpScreen = props => {
   return (
     <ScreenContainer
       style={StyleSheet.applyWidth(
-        { backgroundColor: theme.colors['Social Orange'] },
+        { backgroundColor: theme.colors['App Green'] },
         dimensions.width
       )}
       scrollable={true}
@@ -35,40 +35,24 @@ const SignUpScreen = props => {
         style={StyleSheet.applyWidth(
           {
             alignItems: 'center',
-            backgroundColor: theme.colors['Social Orange'],
+            backgroundColor: theme.colors['App Green'],
             height: '20%',
             justifyContent: 'center',
           },
           dimensions.width
         )}
       >
-        <ImageBackground
+        <Text
           style={StyleSheet.applyWidth(
-            {
-              alignItems: 'center',
-              height: '100%',
-              justifyContent: 'center',
-              width: '100%',
-            },
+            StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+              color: theme.colors['Custom Color_4'],
+              fontSize: 32,
+            }),
             dimensions.width
           )}
-          resizeMode={'cover'}
-          source={Images.LoginBGImg}
         >
-          {/* Heading */}
-          <Text
-            style={StyleSheet.applyWidth(
-              {
-                color: theme.colors['Custom Color'],
-                fontFamily: 'Poppins_600SemiBold',
-                fontSize: 33,
-              },
-              dimensions.width
-            )}
-          >
-            {'Sign up'}
-          </Text>
-        </ImageBackground>
+          {'Sign up'}
+        </Text>
       </View>
 
       <KeyboardAwareScrollView
