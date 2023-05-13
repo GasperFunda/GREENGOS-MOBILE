@@ -15,6 +15,7 @@ const LoginScreen = props => {
   const dimensions = useWindowDimensions();
 
   const { theme } = props;
+  const { navigation } = props;
 
   const [textInputValue, setTextInputValue] = React.useState('');
 
@@ -197,6 +198,13 @@ const LoginScreen = props => {
         </Touchable>
         {/* Login */}
         <Button
+          onPress={() => {
+            try {
+              navigation.navigate('StartScreen');
+            } catch (err) {
+              console.error(err);
+            }
+          }}
           style={StyleSheet.applyWidth(
             {
               backgroundColor: theme.colors['App Green'],
@@ -254,6 +262,13 @@ const LoginScreen = props => {
         </View>
         {/* Sign Up with Email */}
         <Button
+          onPress={() => {
+            try {
+              navigation.navigate('SignUpScreen');
+            } catch (err) {
+              console.error(err);
+            }
+          }}
           style={StyleSheet.applyWidth(
             {
               backgroundColor: theme.colors['Custom Color_4'],

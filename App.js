@@ -29,6 +29,12 @@ const queryClient = new QueryClient();
 const App = () => {
   const [isReady, setIsReady] = React.useState(false);
   const [fontsLoaded] = useFonts({
+    Inter_300Light:
+      'https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuOKfMZhrib2Bg-4.ttf',
+    Inter_400Regular:
+      'https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfMZhrib2Bg-4.ttf',
+    Inter_500Medium:
+      'https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuI6fMZhrib2Bg-4.ttf',
     Poppins_400Regular:
       'https://fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf',
     Poppins_500Medium:

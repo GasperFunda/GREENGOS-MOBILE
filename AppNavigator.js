@@ -8,7 +8,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import theme from './themes/DraftbitTheme.js';
 import LinkingConfiguration from './LinkingConfiguration.js';
 
+import CropDetailViewScreen from './screens/CropDetailViewScreen';
+import EnableLocationScreen from './screens/EnableLocationScreen';
+import GardenDetailViewScreen_6Fi5ZXwW from './screens/GardenDetailViewScreen_6Fi5ZXwW';
+import GardenListScreen from './screens/GardenListScreen';
+import HospitalonMapScreen from './screens/HospitalonMapScreen';
 import LoginScreen from './screens/LoginScreen';
+import NewCropScreen from './screens/NewCropScreen';
+import NewGardenScreen from './screens/NewGardenScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import StartScreen from './screens/StartScreen';
 
@@ -88,6 +95,55 @@ export default function RootAppNavigator() {
           component={StartScreen}
           options={{
             title: 'Start Screen',
+          }}
+        />
+        <Stack.Screen
+          name="GardenListScreen"
+          component={GardenListScreen}
+          options={{
+            title: 'Garden List',
+          }}
+        />
+        <Stack.Screen
+          name="GardenDetailViewScreen_6Fi5ZXwW"
+          component={GardenDetailViewScreen_6Fi5ZXwW}
+          options={{
+            title: 'Garden Detail View',
+          }}
+        />
+        <Stack.Screen
+          name="CropDetailViewScreen"
+          component={CropDetailViewScreen}
+          options={{
+            title: 'Crop Detail View',
+          }}
+        />
+        <Stack.Screen
+          name="NewCropScreen"
+          component={NewCropScreen}
+          options={{
+            title: 'New Crop',
+          }}
+        />
+        <Stack.Screen
+          name="NewGardenScreen"
+          component={NewGardenScreen}
+          options={{
+            title: 'New Garden',
+          }}
+        />
+        <Stack.Screen
+          name="EnableLocationScreen"
+          component={EnableLocationScreen}
+          options={{
+            title: 'Enable Location',
+          }}
+        />
+        <Stack.Screen
+          name="HospitalonMapScreen"
+          component={HospitalonMapScreen}
+          options={{
+            title: 'Hospital on Map',
           }}
         />
       </Stack.Navigator>

@@ -15,6 +15,7 @@ const StartScreen = props => {
   const dimensions = useWindowDimensions();
 
   const { theme } = props;
+  const { navigation } = props;
 
   return (
     <ScreenContainer
@@ -227,6 +228,13 @@ const StartScreen = props => {
           >
             {/* Button Solid */}
             <Button
+              onPress={() => {
+                try {
+                  navigation.navigate('GardenListScreen');
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
               style={StyleSheet.applyWidth(
                 {
                   backgroundColor: theme.colors['App Green'],

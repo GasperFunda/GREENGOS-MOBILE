@@ -17,6 +17,7 @@ const SignUpScreen = props => {
   const dimensions = useWindowDimensions();
 
   const { theme } = props;
+  const { navigation } = props;
 
   const [textInputValue, setTextInputValue] = React.useState('');
 
@@ -396,6 +397,13 @@ const SignUpScreen = props => {
             </Text>
 
             <Touchable
+              onPress={() => {
+                try {
+                  navigation.navigate('LoginScreen');
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
               style={StyleSheet.applyWidth({ marginLeft: 8 }, dimensions.width)}
             >
               <Text
