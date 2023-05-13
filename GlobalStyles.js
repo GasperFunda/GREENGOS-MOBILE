@@ -19,6 +19,11 @@ export const ViewStyles = theme =>
       flexDirection: 'row',
       justifyContent: 'space-between',
     },
+    'BackHeader 4': {
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
   });
 
 export const ButtonStyles = theme =>
@@ -45,8 +50,7 @@ export const FlatListStyles = theme =>
     },
   });
 
-export const ImageStyles = theme =>
-  StyleSheet.create({ Image: { height: 100, width: 100 } });
+export const ImageStyles = theme => StyleSheet.create({});
 
 export const ImageBackgroundStyles = theme =>
   StyleSheet.create({ 'Image Background': { height: '100%', width: '100%' } });
@@ -88,6 +92,9 @@ export const TextInputStyles = theme =>
 
 export const VideoStyles = theme =>
   StyleSheet.create({ Video: { height: 215 } });
+
+export const WebViewStyles = theme =>
+  StyleSheet.create({ 'Web View': { flex: 1 } });
 
 export const YoutubePlayerStyles = theme =>
   StyleSheet.create({ 'Youtube Player': { height: 250 } });

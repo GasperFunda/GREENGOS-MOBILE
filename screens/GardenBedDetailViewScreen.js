@@ -26,6 +26,7 @@ const GardenBedDetailViewScreen = props => {
   const dimensions = useWindowDimensions();
 
   const { theme } = props;
+  const { navigation } = props;
 
   return (
     <ScreenContainer
@@ -52,7 +53,15 @@ const GardenBedDetailViewScreen = props => {
             dimensions.width
           )}
         >
-          <Touchable>
+          <Touchable
+            onPress={() => {
+              try {
+                navigation.goBack();
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+          >
             <Icon size={24} name={'AntDesign/arrowleft'} />
           </Touchable>
         </View>
@@ -83,7 +92,10 @@ const GardenBedDetailViewScreen = props => {
         />
       </View>
 
-      <APIApi.FetchFetchSubgardenByIdGET method={'GET'} id={1}>
+      <APIApi.FetchFetchSubgardenByIdGET
+        method={'GET'}
+        id={props.route?.params?.garden_id ?? 1}
+      >
         {({ loading, error, data, refetchFetchSubgardenById }) => {
           const fetchData = data;
           if (!fetchData || loading) {

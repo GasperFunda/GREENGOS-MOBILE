@@ -7,6 +7,7 @@ import * as StyleSheet from '../utils/StyleSheet';
 import useIsOnline from '../utils/useIsOnline';
 import { MapMarker, MapView } from '@draftbit/maps';
 import {
+  Button,
   Divider,
   Icon,
   ScreenContainer,
@@ -37,6 +38,10 @@ const GardenDetailViewScreen_6Fi5ZXwW = props => {
 
   return (
     <ScreenContainer
+      style={StyleSheet.applyWidth(
+        { alignItems: 'center', backgroundColor: theme.colors['Background'] },
+        dimensions.width
+      )}
       hasTopSafeArea={true}
       hasSafeArea={false}
       scrollable={true}
@@ -390,11 +395,35 @@ const GardenDetailViewScreen_6Fi5ZXwW = props => {
                   </View>
                   {/* Spacer 3 */}
                   <Spacer top={8} right={8} bottom={8} left={8} />
+                  <Text
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['Text'],
+                        {
+                          alignSelf: 'center',
+                          fontFamily: 'Poppins_600SemiBold',
+                          fontSize: 18,
+                          marginBottom: 10,
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {'Garden layout'}
+                  </Text>
                   {/* View 2 */}
-                  <View>
+                  <View
+                    style={StyleSheet.applyWidth(
+                      { alignItems: 'center', justifyContent: 'center' },
+                      dimensions.width
+                    )}
+                  >
                     <Image
                       style={StyleSheet.applyWidth(
-                        GlobalStyles.ImageStyles(theme)['Image'],
+                        StyleSheet.compose(
+                          GlobalStyles.ImageStyles(theme)['Image'],
+                          { height: 150, width: 300 }
+                        ),
                         dimensions.width
                       )}
                       resizeMode={'cover'}
@@ -411,6 +440,25 @@ const GardenDetailViewScreen_6Fi5ZXwW = props => {
           );
         }}
       </APIApi.FetchFetchGardenByIdGET>
+      <Button
+        onPress={() => {
+          try {
+            navigation.navigate('NewSubgardenScreen');
+          } catch (err) {
+            console.error(err);
+          }
+        }}
+        style={StyleSheet.applyWidth(
+          StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
+            backgroundColor: theme.colors['App Green'],
+            fontFamily: 'Poppins_600SemiBold',
+            marginBottom: 20,
+            width: 350,
+          }),
+          dimensions.width
+        )}
+        title={'Create subgarden'}
+      />
       <Text
         style={StyleSheet.applyWidth(
           StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
@@ -460,7 +508,7 @@ const GardenDetailViewScreen_6Fi5ZXwW = props => {
                       onPress={() => {
                         try {
                           navigation.navigate('GardenBedDetailViewScreen', {
-                            garden_id: gardenListData?.id,
+                            garden_id: gardenListData?.crop_id,
                           });
                         } catch (err) {
                           console.error(err);
@@ -486,7 +534,7 @@ const GardenDetailViewScreen_6Fi5ZXwW = props => {
                           onPress={() => {
                             try {
                               navigation.navigate('GardenBedDetailViewScreen', {
-                                garden_id: gardenListData?.id,
+                                garden_id: gardenListData?.crop_id,
                               });
                             } catch (err) {
                               console.error(err);

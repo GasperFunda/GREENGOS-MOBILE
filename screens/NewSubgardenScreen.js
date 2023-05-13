@@ -436,16 +436,6 @@ const NewSubgardenScreen = props => {
               />
             </View>
             <Spacer top={8} right={8} bottom={8} left={8} />
-            <Button
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(GlobalStyles.ButtonStyles(theme)['Button'], {
-                  backgroundColor: theme.colors['App Green'],
-                  margin: 20,
-                }),
-                dimensions.width
-              )}
-              title={'Configure desired plants'}
-            />
             {/* Post Now */}
             <Button
               style={StyleSheet.applyWidth(

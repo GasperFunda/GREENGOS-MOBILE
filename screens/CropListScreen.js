@@ -203,9 +203,12 @@ const CropListScreen = props => {
                                   >
                                     <Image
                                       style={StyleSheet.applyWidth(
-                                        GlobalStyles.ImageStyles(theme)[
-                                          'Image'
-                                        ],
+                                        StyleSheet.compose(
+                                          GlobalStyles.ImageStyles(theme)[
+                                            'Image'
+                                          ],
+                                          { height: 40, width: 40 }
+                                        ),
                                         dimensions.width
                                       )}
                                       resizeMode={'cover'}

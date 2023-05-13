@@ -530,7 +530,7 @@ export const FetchFetchSubgardenByGardenIdGET = ({
 
 export const fetchSubgardenByIdGETStatusAndText = (Constants, { id }) =>
   fetch(
-    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/subgarden_crops?id=eq.${
+    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/subgarden_crops?crop_id=eq.${
       id ?? ''
     }`,
     {
@@ -571,7 +571,7 @@ export const useFetchSubgardenByIdGET = ({ id }) => {
   const isFocused = useIsFocused();
 
   return useFetch(
-    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/subgarden_crops?id=eq.${
+    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/subgarden_crops?crop_id=eq.${
       id ?? ''
     }`,
     {
@@ -604,7 +604,7 @@ export const FetchFetchSubgardenByIdGET = ({
     data,
     error,
   } = useFetch(
-    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/subgarden_crops?id=eq.${
+    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/subgarden_crops?crop_id=eq.${
       id ?? ''
     }`,
     {

@@ -20,6 +20,8 @@ const SignUpScreen = props => {
   const { navigation } = props;
 
   const [textInputValue, setTextInputValue] = React.useState('');
+  const [textInputValue2, setTextInputValue2] = React.useState('');
+  const [textInputValue3, setTextInputValue3] = React.useState('');
 
   return (
     <ScreenContainer
@@ -152,7 +154,6 @@ const SignUpScreen = props => {
             <TextInput
               onChangeText={newTextInputValue => {
                 try {
-                  setTextInputValue(newTextInputValue);
                 } catch (err) {
                   console.error(err);
                 }
@@ -202,7 +203,6 @@ const SignUpScreen = props => {
             <TextInput
               onChangeText={newTextInputValue => {
                 try {
-                  setTextInputValue(newTextInputValue);
                 } catch (err) {
                   console.error(err);
                 }
@@ -235,6 +235,13 @@ const SignUpScreen = props => {
           </View>
           {/* Sign up */}
           <Button
+            onPress={() => {
+              try {
+                navigation.navigate('StartScreen');
+              } catch (err) {
+                console.error(err);
+              }
+            }}
             style={StyleSheet.applyWidth(
               {
                 backgroundColor: theme.colors['App Green'],
