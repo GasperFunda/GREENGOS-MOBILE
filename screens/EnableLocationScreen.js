@@ -15,6 +15,7 @@ const EnableLocationScreen = props => {
   const dimensions = useWindowDimensions();
 
   const { theme } = props;
+  const { navigation } = props;
 
   const [checkboxRowValue, setCheckboxRowValue] = React.useState('');
 
@@ -115,6 +116,13 @@ const EnableLocationScreen = props => {
       <View>
         {/* Allow Location */}
         <Button
+          onPress={() => {
+            try {
+              navigation.navigate('MapViewScreen');
+            } catch (err) {
+              console.error(err);
+            }
+          }}
           style={StyleSheet.applyWidth(
             {
               backgroundColor: theme.colors['App Green'],

@@ -3,10 +3,9 @@ import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import {
   AntDesign,
-  FontAwesome,
+  Entypo,
   Ionicons,
   MaterialCommunityIcons,
-  MaterialIcons,
 } from '@expo/vector-icons';
 
 import IMAGES from './Images.js';
@@ -29,10 +28,9 @@ export default function cacheAssetsAsync() {
   const imageAssets = cacheImages(Object.values(IMAGES));
   const iconAssets = cacheFonts([
     AntDesign.font,
-    FontAwesome.font,
+    Entypo.font,
     Ionicons.font,
     MaterialCommunityIcons.font,
-    MaterialIcons.font,
   ]);
 
   return Promise.all([...imageAssets, ...iconAssets]);

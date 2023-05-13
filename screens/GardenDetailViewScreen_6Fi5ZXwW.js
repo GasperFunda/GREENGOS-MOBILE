@@ -288,48 +288,7 @@ const GardenDetailViewScreen_6Fi5ZXwW = props => {
       >
         {'Weather forecast'}
       </Text>
-      {/* Fetch 2 */}
-      <WeatherAPIApi.FetchGetWeatherWeeklyPOST
-        garden_id={props.route?.params?.garden_id ?? 1}
-      >
-        {({ loading, error, data, refetchGetWeatherWeekly }) => {
-          const fetch2Data = data;
-          if (!fetch2Data || loading) {
-            return <ActivityIndicator />;
-          }
 
-          if (error) {
-            return (
-              <Text style={{ textAlign: 'center' }}>
-                There was a problem fetching this data
-              </Text>
-            );
-          }
-
-          return (
-            <FlatList
-              data={fetch2Data}
-              listKey={'XmFHxAZJ'}
-              keyExtractor={listData => listData}
-              renderItem={({ item }) => {
-                const listData = item;
-                return (
-                  <View
-                    style={StyleSheet.applyWidth(
-                      { backgroundColor: theme.colors['App Green'] },
-                      dimensions.width
-                    )}
-                  />
-                );
-              }}
-              numColumns={1}
-              onEndReachedThreshold={0.5}
-              showsHorizontalScrollIndicator={true}
-              showsVerticalScrollIndicator={true}
-            />
-          );
-        }}
-      </WeatherAPIApi.FetchGetWeatherWeeklyPOST>
       <Text
         style={StyleSheet.applyWidth(
           StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {

@@ -9,13 +9,15 @@ import theme from './themes/DraftbitTheme.js';
 import LinkingConfiguration from './LinkingConfiguration.js';
 
 import CropDetailViewScreen from './screens/CropDetailViewScreen';
+import CropListScreen from './screens/CropListScreen';
 import EnableLocationScreen from './screens/EnableLocationScreen';
+import GardenBedDetailViewScreen from './screens/GardenBedDetailViewScreen';
 import GardenDetailViewScreen_6Fi5ZXwW from './screens/GardenDetailViewScreen_6Fi5ZXwW';
 import GardenListScreen from './screens/GardenListScreen';
-import HospitalonMapScreen from './screens/HospitalonMapScreen';
 import LoginScreen from './screens/LoginScreen';
-import NewCropScreen from './screens/NewCropScreen';
+import MapViewScreen from './screens/MapViewScreen';
 import NewGardenScreen from './screens/NewGardenScreen';
+import NewSubgardenScreen from './screens/NewSubgardenScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import StartScreen from './screens/StartScreen';
 
@@ -72,24 +74,59 @@ function Placeholder() {
     </View>
   );
 }
+function BottomTabNavigator() {
+  return (
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: theme.colors['Custom Color_38'],
+        activeBackgroundColor: theme.colors['Secondary'],
+        inactiveBackgroundColor: theme.colors['BG Gray'],
+        style: {
+          backgroundColor: theme.colors['Background'],
+          borderTopColor: 'transparent',
+        },
+      }}
+    >
+      <Tab.Screen
+        name="LoginScreen"
+        component={LoginScreen}
+        options={{
+          title: 'Login',
+          tabBarIcon: ({ focused, color }) => (
+            <Icon
+              name="Entypo/home"
+              size={25}
+              color={
+                focused ? theme.colors['Strong'] : theme.colors['App Green']
+              }
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="SignUpScreen"
+        component={SignUpScreen}
+        options={{
+          title: 'Sign Up',
+          tabBarIcon: ({ focused, color }) => (
+            <Icon
+              name="AntDesign/logout"
+              size={25}
+              color={
+                focused ? theme.colors['Strong'] : theme.colors['App Green']
+              }
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
+
 export default function RootAppNavigator() {
   return (
     <NavigationContainer linking={LinkingConfiguration}>
       <Stack.Navigator>
-        <Stack.Screen
-          name="LoginScreen"
-          component={LoginScreen}
-          options={{
-            title: 'Login',
-          }}
-        />
-        <Stack.Screen
-          name="SignUpScreen"
-          component={SignUpScreen}
-          options={{
-            title: 'Sign Up',
-          }}
-        />
         <Stack.Screen
           name="StartScreen"
           component={StartScreen}
@@ -112,20 +149,6 @@ export default function RootAppNavigator() {
           }}
         />
         <Stack.Screen
-          name="CropDetailViewScreen"
-          component={CropDetailViewScreen}
-          options={{
-            title: 'Crop Detail View',
-          }}
-        />
-        <Stack.Screen
-          name="NewCropScreen"
-          component={NewCropScreen}
-          options={{
-            title: 'New Crop',
-          }}
-        />
-        <Stack.Screen
           name="NewGardenScreen"
           component={NewGardenScreen}
           options={{
@@ -140,11 +163,43 @@ export default function RootAppNavigator() {
           }}
         />
         <Stack.Screen
-          name="HospitalonMapScreen"
-          component={HospitalonMapScreen}
+          name="MapViewScreen"
+          component={MapViewScreen}
           options={{
-            title: 'Hospital on Map',
+            title: 'Map View',
           }}
+        />
+        <Stack.Screen
+          name="NewSubgardenScreen"
+          component={NewSubgardenScreen}
+          options={{
+            title: 'New Subgarden',
+          }}
+        />
+        <Stack.Screen
+          name="CropDetailViewScreen"
+          component={CropDetailViewScreen}
+          options={{
+            title: 'Crop Detail View',
+          }}
+        />
+        <Stack.Screen
+          name="CropListScreen"
+          component={CropListScreen}
+          options={{
+            title: 'Crop List',
+          }}
+        />
+        <Stack.Screen
+          name="GardenBedDetailViewScreen"
+          component={GardenBedDetailViewScreen}
+          options={{
+            title: 'Garden Bed Detail View',
+          }}
+        />
+        <Stack.Screen
+          name="BottomTabNavigator"
+          component={BottomTabNavigator}
         />
       </Stack.Navigator>
     </NavigationContainer>

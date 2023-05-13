@@ -10,6 +10,208 @@ import { useIsFocused } from '@react-navigation/native';
 import usePrevious from '../utils/usePrevious';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 
+export const fetchCropByIdGETStatusAndText = (Constants, { id }) =>
+  fetch(
+    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/crops?id=eq.${id ?? ''}`,
+    {
+      headers: {
+        Accept: 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+        'Content-Type': 'application/json',
+        apikey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+      },
+    }
+  ).then(async res => ({
+    status: res.status,
+    statusText: res.statusText,
+    text: await res.text(),
+  }));
+
+export const fetchCropByIdGET = (Constants, { id }) =>
+  fetchCropByIdGETStatusAndText(Constants, { id }).then(
+    ({ status, statusText, text }) => {
+      try {
+        return JSON.parse(text);
+      } catch (e) {
+        console.error(
+          [
+            'Failed to parse response text as JSON.',
+            `Error: ${e.message}`,
+            `Text: ${JSON.stringify(text)}`,
+          ].join('\n\n')
+        );
+      }
+    }
+  );
+
+export const useFetchCropByIdGET = ({ id }) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+
+  return useFetch(
+    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/crops?id=eq.${id ?? ''}`,
+    {
+      depends: [isFocused],
+      headers: {
+        Accept: 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+        'Content-Type': 'application/json',
+        apikey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+      },
+    }
+  );
+};
+
+export const FetchFetchCropByIdGET = ({
+  children,
+  onData = () => {},
+  refetchInterval,
+  id,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const refetch = () => {};
+  const {
+    isLoading: loading,
+    data,
+    error,
+  } = useFetch(
+    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/crops?id=eq.${id ?? ''}`,
+    {
+      depends: [isFocused],
+      headers: {
+        Accept: 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+        'Content-Type': 'application/json',
+        apikey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+      },
+    }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  React.useEffect(() => {
+    if (data) {
+      onData(data);
+    }
+  }, [data]);
+
+  return children({ loading, data, error, refetchFetchCropById: refetch });
+};
+
+export const fetchCropsGETStatusAndText = Constants =>
+  fetch(`https://itboyrbpneggaqiewgem.supabase.co/rest/v1/crops`, {
+    headers: {
+      Accept: 'application/json',
+      Authorization:
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+      'Content-Type': 'application/json',
+      apikey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+    },
+  }).then(async res => ({
+    status: res.status,
+    statusText: res.statusText,
+    text: await res.text(),
+  }));
+
+export const fetchCropsGET = Constants =>
+  fetchCropsGETStatusAndText(Constants).then(({ status, statusText, text }) => {
+    try {
+      return JSON.parse(text);
+    } catch (e) {
+      console.error(
+        [
+          'Failed to parse response text as JSON.',
+          `Error: ${e.message}`,
+          `Text: ${JSON.stringify(text)}`,
+        ].join('\n\n')
+      );
+    }
+  });
+
+export const useFetchCropsGET = () => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+
+  return useFetch(`https://itboyrbpneggaqiewgem.supabase.co/rest/v1/crops`, {
+    depends: [isFocused],
+    headers: {
+      Accept: 'application/json',
+      Authorization:
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+      'Content-Type': 'application/json',
+      apikey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+    },
+  });
+};
+
+export const FetchFetchCropsGET = ({
+  children,
+  onData = () => {},
+  refetchInterval,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const refetch = () => {};
+  const {
+    isLoading: loading,
+    data,
+    error,
+  } = useFetch(`https://itboyrbpneggaqiewgem.supabase.co/rest/v1/crops`, {
+    depends: [isFocused],
+    headers: {
+      Accept: 'application/json',
+      Authorization:
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+      'Content-Type': 'application/json',
+      apikey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+    },
+  });
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  React.useEffect(() => {
+    if (data) {
+      onData(data);
+    }
+  }, [data]);
+
+  return children({ loading, data, error, refetchFetchCrops: refetch });
+};
+
 export const fetchGardenByIdGETStatusAndText = (Constants, { garden_id }) =>
   fetch(
     `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/gardens?id=eq.${
@@ -318,4 +520,117 @@ export const FetchFetchSubgardenByGardenIdGET = ({
     error,
     refetchFetchSubgardenByGardenId: refetch,
   });
+};
+
+export const fetchSubgardenByIdGETStatusAndText = (Constants, { id }) =>
+  fetch(
+    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/subgarden?id=eq.${
+      id ?? ''
+    }`,
+    {
+      headers: {
+        Accept: 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+        'Content-Type': 'application/json',
+        apikey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+      },
+    }
+  ).then(async res => ({
+    status: res.status,
+    statusText: res.statusText,
+    text: await res.text(),
+  }));
+
+export const fetchSubgardenByIdGET = (Constants, { id }) =>
+  fetchSubgardenByIdGETStatusAndText(Constants, { id }).then(
+    ({ status, statusText, text }) => {
+      try {
+        return JSON.parse(text);
+      } catch (e) {
+        console.error(
+          [
+            'Failed to parse response text as JSON.',
+            `Error: ${e.message}`,
+            `Text: ${JSON.stringify(text)}`,
+          ].join('\n\n')
+        );
+      }
+    }
+  );
+
+export const useFetchSubgardenByIdGET = ({ id }) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+
+  return useFetch(
+    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/subgarden?id=eq.${
+      id ?? ''
+    }`,
+    {
+      depends: [isFocused],
+      headers: {
+        Accept: 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+        'Content-Type': 'application/json',
+        apikey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+      },
+    }
+  );
+};
+
+export const FetchFetchSubgardenByIdGET = ({
+  children,
+  onData = () => {},
+  refetchInterval,
+  id,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const refetch = () => {};
+  const {
+    isLoading: loading,
+    data,
+    error,
+  } = useFetch(
+    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/subgarden?id=eq.${
+      id ?? ''
+    }`,
+    {
+      depends: [isFocused],
+      headers: {
+        Accept: 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+        'Content-Type': 'application/json',
+        apikey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+      },
+    }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  React.useEffect(() => {
+    if (data) {
+      onData(data);
+    }
+  }, [data]);
+
+  return children({ loading, data, error, refetchFetchSubgardenById: refetch });
 };

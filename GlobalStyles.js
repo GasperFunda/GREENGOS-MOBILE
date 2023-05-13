@@ -2,6 +2,17 @@ import * as StyleSheet from './utils/StyleSheet';
 
 import Breakpoints from './utils/Breakpoints';
 
+export const ButtonStyles = theme =>
+  StyleSheet.create({
+    Button: {
+      backgroundColor: theme.colors.primary,
+      borderRadius: 8,
+      fontFamily: 'System',
+      fontWeight: '700',
+      textAlign: 'center',
+    },
+  });
+
 export const FetchStyles = theme =>
   StyleSheet.create({ Fetch: { minHeight: 40 } });
 
@@ -14,6 +25,9 @@ export const FlatListStyles = theme =>
       paddingTop: 16,
     },
   });
+
+export const ImageStyles = theme =>
+  StyleSheet.create({ Image: { height: 100, width: 100 } });
 
 export const ImageBackgroundStyles = theme =>
   StyleSheet.create({ 'Image Background': { height: '100%', width: '100%' } });

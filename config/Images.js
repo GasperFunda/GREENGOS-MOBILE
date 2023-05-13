@@ -11,4 +11,7 @@ export default {
   Insta: require('../assets/images/Insta.png'),
   Twitter: require('../assets/images/Twitter.png'),
   Pin: require('../assets/images/Pin.png'),
+  CourseSplash: require('../assets/images/CourseSplash.png'),
+  NoContentIllustration: require('../assets/images/NoContentIllustration.png'),
+  CharlieGreen3JmfENcL24MUnsplash: require('../assets/images/CharlieGreen3JmfENcL24MUnsplash.jpg'),
 };
