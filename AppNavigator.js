@@ -18,6 +18,7 @@ import LoginScreen from './screens/LoginScreen';
 import MapViewScreen from './screens/MapViewScreen';
 import NewGardenScreen from './screens/NewGardenScreen';
 import NewSubgardenScreen from './screens/NewSubgardenScreen';
+import PlannerScreen from './screens/PlannerScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import StartScreen from './screens/StartScreen';
 
@@ -111,6 +112,22 @@ function BottomTabNavigator() {
           tabBarIcon: ({ focused, color }) => (
             <Icon
               name="FontAwesome/tree"
+              size={25}
+              color={
+                focused ? theme.colors['Background'] : theme.colors['App Green']
+              }
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="PlannerScreen"
+        component={PlannerScreen}
+        options={{
+          title: 'Planner',
+          tabBarIcon: ({ focused, color }) => (
+            <Icon
+              name="AntDesign/calendar"
               size={25}
               color={
                 focused ? theme.colors['Background'] : theme.colors['App Green']

@@ -1,6 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as APIApi from '../apis/APIApi.js';
+import * as Utils from '../utils';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import {
@@ -8,10 +9,12 @@ import {
   ScreenContainer,
   Spacer,
   Touchable,
+  WebView,
   YoutubePlayer,
   withTheme,
 } from '@draftbit/ui';
 import { useIsFocused } from '@react-navigation/native';
+import { Video } from 'expo-av';
 import {
   ActivityIndicator,
   FlatList,
@@ -156,59 +159,14 @@ const GardenBedDetailViewScreen = props => {
                     dimensions.width
                   )}
                 >
-                  {/* View 2 */}
-                  <View
-                    style={StyleSheet.applyWidth(
-                      {
-                        alignItems: 'center',
-                        flexDirection: 'row',
-                        justifyContent: 'flex-start',
-                      },
-                      dimensions.width
-                    )}
-                  >
-                    <Text
-                      style={StyleSheet.applyWidth(
-                        {
-                          color: theme.colors.strong,
-                          fontFamily: 'Poppins_600SemiBold',
-                          fontSize: 22,
-                        },
-                        dimensions.width
-                      )}
-                      textBreakStrategy={'highQuality'}
-                      ellipsizeMode={'tail'}
-                      allowFontScaling={true}
-                      numberOfLines={2}
-                    >
-                      {(fetchData && fetchData[0])?.title}
-                      {'\n'}
-                    </Text>
-                    {/* Text 2 */}
-                    <Text
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.TextStyles(theme)['Text'],
-                          {
-                            color: theme.colors['Light'],
-                            fontFamily: 'Poppins_400Regular',
-                            fontSize: 12,
-                            marginLeft: 12,
-                            textTransform: 'capitalize',
-                          }
-                        ),
-                        dimensions.width
-                      )}
-                    >
-                      {'Status: '}
-                      {(fetchData && fetchData[0])?.status}
-                    </Text>
-                  </View>
-                  <Spacer top={8} right={8} bottom={8} left={8} />
                   <View>
                     <View
                       style={StyleSheet.applyWidth(
-                        { flexDirection: 'row' },
+                        {
+                          alignItems: 'center',
+                          flexDirection: 'row',
+                          justifyContent: 'center',
+                        },
                         dimensions.width
                       )}
                     >
@@ -258,50 +216,180 @@ const GardenBedDetailViewScreen = props => {
                         </Text>
                       </View>
                       <Spacer top={8} right={6} bottom={8} left={6} />
-                      <View
+                    </View>
+                  </View>
+                  {/* Crop detail */}
+                  <View
+                    style={StyleSheet.applyWidth(
+                      GlobalStyles.ViewStyles(theme)['Crop detail'],
+                      dimensions.width
+                    )}
+                  >
+                    <View
+                      style={StyleSheet.applyWidth(
+                        {
+                          alignItems: 'center',
+                          flexDirection: 'row',
+                          height: 30,
+                          justifyContent: 'center',
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      {/* Text 2 */}
+                      <Text
                         style={StyleSheet.applyWidth(
-                          {
-                            alignItems: 'center',
-                            alignSelf: 'stretch',
-                            backgroundColor: theme.colors.surface,
-                            borderBottomWidth: 1,
-                            borderColor: theme.colors.divider,
-                            borderLeftWidth: 1,
-                            borderRadius: 8,
-                            borderRightWidth: 1,
-                            borderTopWidth: 1,
-                            flex: 1,
-                            flexDirection: 'row',
-                            justifyContent: 'center',
-                            paddingBottom: 8,
-                            paddingLeft: 8,
-                            paddingRight: 8,
-                            paddingTop: 8,
-                          },
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text'],
+                            { fontFamily: 'Poppins_600SemiBold', fontSize: 24 }
+                          ),
                           dimensions.width
                         )}
                       >
-                        <Icon
-                          size={20}
-                          name={'MaterialCommunityIcons/fruit-grapes'}
-                          color={theme.colors['App Green']}
-                        />
-                        <Spacer right={2} left={2} />
-                        <Text
-                          style={StyleSheet.applyWidth(
+                        {(fetchData && fetchData[0])?.title}
+                      </Text>
+
+                      <Text
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text'],
                             {
-                              color: theme.colors.medium,
-                              fontFamily: 'Poppins_400Regular',
-                              fontSize: 12,
-                            },
-                            dimensions.width
-                          )}
-                        >
-                          {(fetchData && fetchData[0])?.crops?.length}
-                          {' types of crops'}
-                        </Text>
-                      </View>
-                      <Spacer top={8} right={6} bottom={8} left={6} />
+                              alignSelf: 'center',
+                              color: theme.colors['Light'],
+                              flex: 2,
+                              fontFamily: 'Poppins_400Regular_Italic',
+                              textAlign: 'center',
+                              textTransform: 'capitalize',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {(fetchData && fetchData[0])?.title_latin}
+                      </Text>
+                    </View>
+                    {/* Item Description */}
+                    <Text
+                      style={StyleSheet.applyWidth(
+                        {
+                          color: theme.colors.medium,
+                          fontFamily: 'Poppins_400Regular',
+                          fontSize: 15,
+                          lineHeight: 24,
+                          marginTop: 6,
+                          textAlign: 'auto',
+                          width: '100%',
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      {(fetchData && fetchData[0])?.description}
+                    </Text>
+                    {/* Item Good Neighbours */}
+                    <Text
+                      style={StyleSheet.applyWidth(
+                        {
+                          color: theme.colors['Medium'],
+                          fontFamily: 'Poppins_400Regular',
+                          fontSize: 14,
+                          marginTop: 6,
+                          textAlign: 'auto',
+                          width: '100%',
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      {'Good neighbours: '}
+                      {(fetchData && fetchData[0])?.good_neighbours}
+                    </Text>
+                    {/* Item Bad Neighbours */}
+                    <Text
+                      style={StyleSheet.applyWidth(
+                        {
+                          color: theme.colors['Medium'],
+                          fontFamily: 'Poppins_400Regular',
+                          fontSize: 14,
+                          marginTop: 6,
+                          textAlign: 'auto',
+                          width: '100%',
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      {'Bad neighbours: '}
+                      {(fetchData && fetchData[0])?.bad_neighbours}
+                    </Text>
+                    {/* Item Bad Neighbours */}
+                    <Text
+                      style={StyleSheet.applyWidth(
+                        {
+                          color: theme.colors['Medium'],
+                          fontFamily: 'Poppins_400Regular',
+                          fontSize: 14,
+                          marginTop: 6,
+                          textAlign: 'auto',
+                          width: '100%',
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      {'Watering: '}
+                      {(fetchData && fetchData[0])?.watering}
+                    </Text>
+                    {/* Item Bad Neighbours */}
+                    <Text
+                      style={StyleSheet.applyWidth(
+                        {
+                          color: theme.colors['Medium'],
+                          fontFamily: 'Poppins_400Regular',
+                          fontSize: 14,
+                          marginTop: 6,
+                          textAlign: 'auto',
+                          width: '100%',
+                        },
+                        dimensions.width
+                      )}
+                    >
+                      {'Growth time: '}
+                      {(fetchData && fetchData[0])?.growth_time}
+                    </Text>
+
+                    <Text
+                      style={StyleSheet.applyWidth(
+                        StyleSheet.compose(
+                          GlobalStyles.TextStyles(theme)['Text'],
+                          {
+                            fontFamily: 'Poppins_600SemiBold',
+                            fontSize: 24,
+                            marginBottom: 10,
+                            marginTop: 10,
+                          }
+                        ),
+                        dimensions.width
+                      )}
+                    >
+                      {'Example video\n'}
+                    </Text>
+                    {/* View 2 */}
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { alignItems: 'center', justifyContent: 'center' },
+                        dimensions.width
+                      )}
+                    >
+                      <YoutubePlayer
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.YoutubePlayerStyles(theme)[
+                              'Youtube Player'
+                            ],
+                            { width: '100%' }
+                          ),
+                          dimensions.width
+                        )}
+                        videoId={(fetchData && fetchData[0])?.video_url}
+                        autoplay={false}
+                      />
                     </View>
                   </View>
                 </View>
@@ -363,128 +451,6 @@ const GardenBedDetailViewScreen = props => {
                 showsHorizontalScrollIndicator={true}
                 showsVerticalScrollIndicator={true}
               />
-              {/* Crop details AD */}
-              <View
-                style={StyleSheet.applyWidth(
-                  { marginLeft: 20, marginRight: 20 },
-                  dimensions.width
-                )}
-              >
-                {/* Item Description */}
-                <Text
-                  style={StyleSheet.applyWidth(
-                    {
-                      color: theme.colors.medium,
-                      fontFamily: 'Poppins_400Regular',
-                      fontSize: 15,
-                      lineHeight: 24,
-                      marginTop: 6,
-                      textAlign: 'auto',
-                      width: '100%',
-                    },
-                    dimensions.width
-                  )}
-                >
-                  {(fetchData && fetchData[0])?.description}
-                </Text>
-                {/* Item Good Neighbours */}
-                <Text
-                  style={StyleSheet.applyWidth(
-                    {
-                      color: theme.colors['Medium'],
-                      fontFamily: 'Poppins_400Regular',
-                      fontSize: 14,
-                      marginTop: 6,
-                      textAlign: 'auto',
-                      width: '100%',
-                    },
-                    dimensions.width
-                  )}
-                >
-                  {'Good neighbours: '}
-                  {(fetchData && fetchData[0])?.good_neighbours}
-                </Text>
-                {/* Item Bad Neighbours */}
-                <Text
-                  style={StyleSheet.applyWidth(
-                    {
-                      color: theme.colors['Medium'],
-                      fontFamily: 'Poppins_400Regular',
-                      fontSize: 14,
-                      marginTop: 6,
-                      textAlign: 'auto',
-                      width: '100%',
-                    },
-                    dimensions.width
-                  )}
-                >
-                  {'Bad neighbours: '}
-                  {(fetchData && fetchData[0])?.bad_neighbours}
-                </Text>
-                {/* Item Bad Neighbours */}
-                <Text
-                  style={StyleSheet.applyWidth(
-                    {
-                      color: theme.colors['Medium'],
-                      fontFamily: 'Poppins_400Regular',
-                      fontSize: 14,
-                      marginTop: 6,
-                      textAlign: 'auto',
-                      width: '100%',
-                    },
-                    dimensions.width
-                  )}
-                >
-                  {'Watering: '}
-                  {(fetchData && fetchData[0])?.watering}
-                </Text>
-                {/* Item Bad Neighbours */}
-                <Text
-                  style={StyleSheet.applyWidth(
-                    {
-                      color: theme.colors['Medium'],
-                      fontFamily: 'Poppins_400Regular',
-                      fontSize: 14,
-                      marginTop: 6,
-                      textAlign: 'auto',
-                      width: '100%',
-                    },
-                    dimensions.width
-                  )}
-                >
-                  {'Growth time: '}
-                  {(fetchData && fetchData[0])?.growth_time}
-                </Text>
-
-                <Text
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-                      fontFamily: 'Poppins_600SemiBold',
-                      fontSize: 24,
-                      marginBottom: 10,
-                      marginTop: 10,
-                    }),
-                    dimensions.width
-                  )}
-                >
-                  {'Example video\n'}
-                </Text>
-                {/* View 2 */}
-                <View
-                  style={StyleSheet.applyWidth(
-                    { alignItems: 'center', justifyContent: 'center' },
-                    dimensions.width
-                  )}
-                >
-                  <YoutubePlayer
-                    style={StyleSheet.applyWidth(
-                      GlobalStyles.YoutubePlayerStyles(theme)['Youtube Player'],
-                      dimensions.width
-                    )}
-                    videoId={(fetchData && fetchData[0])?.video_url}
-                  />
-                </View>
-              </View>
             </>
           );
         }}

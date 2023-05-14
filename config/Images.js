@@ -14,4 +14,6 @@ export default {
   CourseSplash: require('../assets/images/CourseSplash.png'),
   NoContentIllustration: require('../assets/images/NoContentIllustration.png'),
   CharlieGreen3JmfENcL24MUnsplash: require('../assets/images/CharlieGreen3JmfENcL24MUnsplash.jpg'),
+  Logo: require('../assets/images/Logo.png'),
+  Image2: require('../assets/images/Image2.png'),
 };

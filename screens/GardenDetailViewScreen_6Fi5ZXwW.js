@@ -155,286 +155,277 @@ const GardenDetailViewScreen_6Fi5ZXwW = props => {
                 </ImageBackground>
               </View>
 
-              <View>
+              <Text
+                style={StyleSheet.applyWidth(
+                  {
+                    color: theme.colors.strong,
+                    fontFamily: 'Poppins_600SemiBold',
+                    fontSize: 22,
+                  },
+                  dimensions.width
+                )}
+                textBreakStrategy={'highQuality'}
+                ellipsizeMode={'tail'}
+                allowFontScaling={true}
+                numberOfLines={2}
+              >
+                {(fetchData && fetchData[0])?.name}
+              </Text>
+              <Spacer top={8} right={8} bottom={8} left={8} />
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    justifyContent: 'space-around',
+                  },
+                  dimensions.width
+                )}
+              >
                 <View
                   style={StyleSheet.applyWidth(
                     {
-                      paddingBottom: 24,
-                      paddingLeft: 24,
-                      paddingRight: 24,
-                      paddingTop: 24,
+                      alignItems: 'center',
+                      alignSelf: 'stretch',
+                      backgroundColor: theme.colors.surface,
+                      borderBottomWidth: 1,
+                      borderColor: theme.colors.divider,
+                      borderLeftWidth: 1,
+                      borderRadius: 8,
+                      borderRightWidth: 1,
+                      borderTopWidth: 1,
+                      flex: 1,
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      paddingBottom: 8,
+                      paddingLeft: 8,
+                      paddingRight: 8,
+                      paddingTop: 8,
                     },
                     dimensions.width
                   )}
                 >
-                  <Text
-                    style={StyleSheet.applyWidth(
-                      {
-                        color: theme.colors.strong,
-                        fontFamily: 'Poppins_600SemiBold',
-                        fontSize: 22,
-                      },
-                      dimensions.width
-                    )}
-                    textBreakStrategy={'highQuality'}
-                    ellipsizeMode={'tail'}
-                    allowFontScaling={true}
-                    numberOfLines={2}
-                  >
-                    {(fetchData && fetchData[0])?.name}
-                  </Text>
-                  <Spacer top={8} right={8} bottom={8} left={8} />
-                  <View>
-                    <View
-                      style={StyleSheet.applyWidth(
-                        { flexDirection: 'row' },
-                        dimensions.width
-                      )}
-                    >
-                      <View
-                        style={StyleSheet.applyWidth(
-                          {
-                            alignItems: 'center',
-                            alignSelf: 'stretch',
-                            backgroundColor: theme.colors.surface,
-                            borderBottomWidth: 1,
-                            borderColor: theme.colors.divider,
-                            borderLeftWidth: 1,
-                            borderRadius: 8,
-                            borderRightWidth: 1,
-                            borderTopWidth: 1,
-                            flex: 1,
-                            flexDirection: 'row',
-                            justifyContent: 'center',
-                            paddingBottom: 8,
-                            paddingLeft: 8,
-                            paddingRight: 8,
-                            paddingTop: 8,
-                          },
-                          dimensions.width
-                        )}
-                      >
-                        <Icon
-                          size={24}
-                          name={'Ionicons/md-earth-sharp'}
-                          color={theme.colors['App Green']}
-                        />
-                        <Spacer right={2} left={2} />
-                        <Text
-                          style={StyleSheet.applyWidth(
-                            {
-                              color: theme.colors.medium,
-                              fontFamily: 'Poppins_400Regular',
-                              fontSize: 12,
-                            },
-                            dimensions.width
-                          )}
-                        >
-                          {(fetchData && fetchData[0])?.num_crops}
-                          {' crops'}
-                        </Text>
-                      </View>
-                      <Spacer top={8} right={6} bottom={8} left={6} />
-                      <View
-                        style={StyleSheet.applyWidth(
-                          {
-                            alignItems: 'center',
-                            alignSelf: 'stretch',
-                            backgroundColor: theme.colors.surface,
-                            borderBottomWidth: 1,
-                            borderColor: theme.colors.divider,
-                            borderLeftWidth: 1,
-                            borderRadius: 8,
-                            borderRightWidth: 1,
-                            borderTopWidth: 1,
-                            flex: 1,
-                            flexDirection: 'row',
-                            justifyContent: 'center',
-                            paddingBottom: 8,
-                            paddingLeft: 8,
-                            paddingRight: 8,
-                            paddingTop: 8,
-                          },
-                          dimensions.width
-                        )}
-                      >
-                        <Icon
-                          size={20}
-                          name={'MaterialCommunityIcons/fruit-grapes'}
-                          color={theme.colors['App Green']}
-                        />
-                        <Spacer right={2} left={2} />
-                        <Text
-                          style={StyleSheet.applyWidth(
-                            {
-                              color: theme.colors.medium,
-                              fontFamily: 'Poppins_400Regular',
-                              fontSize: 12,
-                            },
-                            dimensions.width
-                          )}
-                        >
-                          {(fetchData && fetchData[0])?.num_plants}
-                          {' types of plants'}
-                        </Text>
-                      </View>
-                      <Spacer top={8} right={6} bottom={8} left={6} />
-                    </View>
-                  </View>
-                  <Spacer top={12} right={8} bottom={12} left={8} />
-                  {/* Crops percent list */}
-                  <FlatList
-                    data={(fetchData && fetchData[0])?.crops}
-                    listKey={'1ZoChYk1'}
-                    keyExtractor={cropsPercentListData =>
-                      cropsPercentListData?.id ||
-                      cropsPercentListData?.uuid ||
-                      JSON.stringify(cropsPercentListData)
-                    }
-                    renderItem={({ item }) => {
-                      const cropsPercentListData = item;
-                      return (
-                        <View
-                          style={StyleSheet.applyWidth(
-                            {
-                              alignItems: 'center',
-                              flexDirection: 'row',
-                              justifyContent: 'flex-start',
-                            },
-                            dimensions.width
-                          )}
-                        >
-                          <Text
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['Text'],
-                                {
-                                  fontFamily: 'Poppins_400Regular',
-                                  fontSize: 18,
-                                  marginLeft: 20,
-                                  marginRight: 20,
-                                }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            {cropsPercentListData?.crop}
-                            {':'}
-                          </Text>
-                          <Spacer top={8} right={8} bottom={8} left={8} />
-                          {/* Text 2 */}
-                          <Text
-                            style={StyleSheet.applyWidth(
-                              StyleSheet.compose(
-                                GlobalStyles.TextStyles(theme)['Text'],
-                                {
-                                  fontFamily: 'Poppins_400Regular',
-                                  fontSize: 18,
-                                }
-                              ),
-                              dimensions.width
-                            )}
-                          >
-                            {cropsPercentListData?.percent}
-                          </Text>
-                        </View>
-                      );
-                    }}
-                    numColumns={1}
-                    onEndReachedThreshold={0.5}
-                    showsHorizontalScrollIndicator={true}
-                    showsVerticalScrollIndicator={true}
+                  <Icon
+                    size={24}
+                    name={'Ionicons/md-earth-sharp'}
+                    color={theme.colors['App Green']}
                   />
-                  {/* Spacer 2 */}
-                  <Spacer top={8} right={8} bottom={8} left={8} />
-                  <View
+                  <Spacer right={2} left={2} />
+                  <Text
                     style={StyleSheet.applyWidth(
                       {
-                        backgroundColor: theme.colors.surface,
-                        borderRadius: 16,
-                        paddingBottom: 8,
-                        paddingLeft: 8,
-                        paddingRight: 8,
-                        paddingTop: 8,
+                        color: theme.colors.medium,
+                        fontFamily: 'Poppins_400Regular',
+                        fontSize: 12,
                       },
                       dimensions.width
                     )}
                   >
+                    {(fetchData && fetchData[0])?.num_crops}
+                    {' crops'}
+                  </Text>
+                </View>
+                <Spacer top={8} right={6} bottom={8} left={6} />
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      alignItems: 'center',
+                      alignSelf: 'stretch',
+                      backgroundColor: theme.colors.surface,
+                      borderBottomWidth: 1,
+                      borderColor: theme.colors.divider,
+                      borderLeftWidth: 1,
+                      borderRadius: 8,
+                      borderRightWidth: 1,
+                      borderTopWidth: 1,
+                      flex: 1,
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      paddingBottom: 8,
+                      paddingLeft: 8,
+                      paddingRight: 8,
+                      paddingTop: 8,
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <Icon
+                    size={20}
+                    name={'MaterialCommunityIcons/fruit-grapes'}
+                    color={theme.colors['App Green']}
+                  />
+                  <Spacer right={2} left={2} />
+                  <Text
+                    style={StyleSheet.applyWidth(
+                      {
+                        color: theme.colors.medium,
+                        fontFamily: 'Poppins_400Regular',
+                        fontSize: 12,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    {(fetchData && fetchData[0])?.num_plants}
+                    {' types of plants'}
+                  </Text>
+                </View>
+                <Spacer top={8} right={6} bottom={8} left={6} />
+              </View>
+              <Spacer top={12} right={8} bottom={12} left={8} />
+              {/* Crops percent list */}
+              <FlatList
+                data={(fetchData && fetchData[0])?.crops}
+                listKey={'1ZoChYk1'}
+                keyExtractor={cropsPercentListData =>
+                  cropsPercentListData?.id ||
+                  cropsPercentListData?.uuid ||
+                  JSON.stringify(cropsPercentListData)
+                }
+                renderItem={({ item }) => {
+                  const cropsPercentListData = item;
+                  return (
                     <View
                       style={StyleSheet.applyWidth(
-                        { borderRadius: 10, height: 240, overflow: 'hidden' },
+                        {
+                          alignItems: 'center',
+                          flexDirection: 'row',
+                          justifyContent: 'flex-start',
+                        },
                         dimensions.width
                       )}
                     >
-                      <MapView
+                      <Text
                         style={StyleSheet.applyWidth(
-                          { flex: 1 },
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text'],
+                            {
+                              fontFamily: 'Poppins_400Regular',
+                              fontSize: 18,
+                              marginLeft: 20,
+                              marginRight: 20,
+                            }
+                          ),
                           dimensions.width
                         )}
-                        latitude={(fetchData && fetchData[0])?.lat}
-                        longitude={(fetchData && fetchData[0])?.long}
-                        zoomEnabled={true}
-                        rotateEnabled={true}
-                        scrollEnabled={true}
-                        loadingEnabled={true}
-                        showsPointsOfInterest={true}
-                        zoom={16}
-                        apiKey={'AIzaSyBzktToWosjNgrrUawZnbslB9NSXSXCkwo'}
-                        ref={mapViewwIaDAHIXRef}
                       >
-                        <MapMarker
-                          longitude={(fetchData && fetchData[0])?.long}
-                          title={fetchData?.name}
-                          latitude={(fetchData && fetchData[0])?.lat}
-                          pinColor={theme.colors.primary}
-                          pinImage={''}
-                        />
-                      </MapView>
+                        {cropsPercentListData?.crop}
+                        {':'}
+                      </Text>
+                      <Spacer top={8} right={8} bottom={8} left={8} />
+                      {/* Text 2 */}
+                      <Text
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text'],
+                            { fontFamily: 'Poppins_400Regular', fontSize: 18 }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {cropsPercentListData?.percent}
+                      </Text>
                     </View>
-                  </View>
-                  {/* Spacer 3 */}
-                  <Spacer top={8} right={8} bottom={8} left={8} />
-                  <Text
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.TextStyles(theme)['Text'],
-                        {
-                          alignSelf: 'center',
-                          fontFamily: 'Poppins_600SemiBold',
-                          fontSize: 18,
-                          marginBottom: 10,
-                        }
-                      ),
-                      dimensions.width
-                    )}
+                  );
+                }}
+                numColumns={1}
+                onEndReachedThreshold={0.5}
+                showsHorizontalScrollIndicator={true}
+                showsVerticalScrollIndicator={true}
+              />
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    backgroundColor: theme.colors.surface,
+                    borderRadius: 16,
+                    paddingBottom: 8,
+                    paddingLeft: 8,
+                    paddingRight: 8,
+                    paddingTop: 8,
+                  },
+                  dimensions.width
+                )}
+              >
+                <View
+                  style={StyleSheet.applyWidth(
+                    {
+                      borderRadius: 10,
+                      height: 240,
+                      overflow: 'hidden',
+                      width: 340,
+                    },
+                    dimensions.width
+                  )}
+                >
+                  <MapView
+                    style={StyleSheet.applyWidth({ flex: 1 }, dimensions.width)}
+                    latitude={(fetchData && fetchData[0])?.lat}
+                    longitude={(fetchData && fetchData[0])?.long}
+                    zoomEnabled={true}
+                    rotateEnabled={true}
+                    scrollEnabled={true}
+                    loadingEnabled={true}
+                    showsPointsOfInterest={true}
+                    zoom={16}
+                    apiKey={'AIzaSyBzktToWosjNgrrUawZnbslB9NSXSXCkwo'}
+                    ref={mapViewwIaDAHIXRef}
                   >
-                    {'Garden layout'}
-                  </Text>
-                  {/* View 2 */}
-                  <View
-                    style={StyleSheet.applyWidth(
-                      { alignItems: 'center', justifyContent: 'center' },
-                      dimensions.width
-                    )}
-                  >
-                    <Image
-                      style={StyleSheet.applyWidth(
-                        StyleSheet.compose(
-                          GlobalStyles.ImageStyles(theme)['Image'],
-                          { height: 150, width: 300 }
-                        ),
-                        dimensions.width
-                      )}
-                      resizeMode={'cover'}
-                      source={{
-                        uri: `${(fetchData && fetchData[0])?.layout_image}`,
-                      }}
+                    <MapMarker
+                      longitude={(fetchData && fetchData[0])?.long}
+                      title={fetchData?.name}
+                      latitude={(fetchData && fetchData[0])?.lat}
+                      pinColor={theme.colors.primary}
+                      pinImage={''}
                     />
-                  </View>
-                  <Spacer top={8} right={8} bottom={8} left={8} />
+                  </MapView>
                 </View>
               </View>
-              <View />
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignItems: 'stretch',
+                    justifyContent: 'flex-start',
+                    margin: 20,
+                  },
+                  dimensions.width
+                )}
+              />
+              {/* Spacer 3 */}
+              <Spacer top={8} right={8} bottom={8} left={8} />
+              <Text
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                    alignSelf: 'center',
+                    fontFamily: 'Poppins_600SemiBold',
+                    fontSize: 18,
+                    marginBottom: 10,
+                  }),
+                  dimensions.width
+                )}
+              >
+                {'Garden layout'}
+              </Text>
+              {/* View 2 */}
+              <View
+                style={StyleSheet.applyWidth(
+                  { alignItems: 'center', justifyContent: 'center' },
+                  dimensions.width
+                )}
+              >
+                <Image
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.ImageStyles(theme)['Image'],
+                      { height: 150, width: 300 }
+                    ),
+                    dimensions.width
+                  )}
+                  resizeMode={'cover'}
+                  source={{
+                    uri: `${(fetchData && fetchData[0])?.layout_image}`,
+                  }}
+                />
+              </View>
+              <Spacer top={8} right={8} bottom={8} left={8} />
             </>
           );
         }}

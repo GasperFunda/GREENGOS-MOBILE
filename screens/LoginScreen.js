@@ -1,4 +1,6 @@
 import React from 'react';
+import * as GlobalStyles from '../GlobalStyles.js';
+import Images from '../config/Images';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import {
@@ -8,7 +10,13 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { Text, TextInput, View, useWindowDimensions } from 'react-native';
+import {
+  Image,
+  Text,
+  TextInput,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 
 const LoginScreen = props => {
   const dimensions = useWindowDimensions();
@@ -31,10 +39,35 @@ const LoginScreen = props => {
     >
       <View
         style={StyleSheet.applyWidth(
-          { flex: 1, paddingLeft: 30, paddingRight: 30, paddingTop: 20 },
+          {
+            alignContent: 'flex-start',
+            flex: 1,
+            justifyContent: 'flex-start',
+            paddingLeft: 30,
+            paddingRight: 30,
+            paddingTop: 20,
+          },
           dimensions.width
         )}
       >
+        <View
+          style={StyleSheet.applyWidth(
+            { alignItems: 'center' },
+            dimensions.width
+          )}
+        >
+          <Image
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(GlobalStyles.ImageStyles(theme)['Image'], {
+                height: 250,
+                width: 250,
+              }),
+              dimensions.width
+            )}
+            resizeMode={'cover'}
+            source={Images.Logo}
+          />
+        </View>
         {/* Heading */}
         <Text
           style={StyleSheet.applyWidth(

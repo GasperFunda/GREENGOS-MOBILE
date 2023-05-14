@@ -51,10 +51,13 @@ const StartScreen = props => {
           <View
             style={StyleSheet.applyWidth(
               {
-                backgroundColor: theme.colors['App Green'],
+                alignContent: 'flex-start',
+                alignItems: 'center',
+                alignSelf: 'auto',
                 borderRadius: 50,
-                height: 50,
-                width: 50,
+                height: 250,
+                justifyContent: 'center',
+                width: '100%',
               },
               dimensions.width
             )}
@@ -64,13 +67,13 @@ const StartScreen = props => {
               style={StyleSheet.applyWidth(
                 {
                   borderColor: theme.colors['App Green'],
-                  height: 50,
-                  width: 50,
+                  height: 250,
+                  width: 250,
                 },
                 dimensions.width
               )}
               resizeMode={'contain'}
-              source={Images.AppIcon}
+              source={Images.Image2}
             />
           </View>
 
@@ -91,7 +94,7 @@ const StartScreen = props => {
                 dimensions.width
               )}
             >
-              {'Welcome to Greengo'}
+              {'Welcome to Gardeno'}
             </Text>
           </View>
           {/* Features View */}

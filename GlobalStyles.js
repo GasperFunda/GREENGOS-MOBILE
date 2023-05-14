@@ -25,6 +25,16 @@ export const ViewStyles = theme =>
       flexDirection: 'row',
       justifyContent: 'space-between',
     },
+    'Crop detail': {
+      backgroundColor: theme.colors['Background'],
+      flex: 1,
+      flexGrow: 1,
+      flexShrink: 0,
+      minHeight: 800,
+      paddingBottom: 12,
+      paddingLeft: 18,
+      paddingRight: 18,
+    },
     'Status label': { alignItems: 'flex-end', marginTop: 16 },
   });
 

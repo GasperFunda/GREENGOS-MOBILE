@@ -49,6 +49,7 @@ const SignUpScreen = props => {
           style={StyleSheet.applyWidth(
             StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
               color: theme.colors['Custom Color_4'],
+              fontFamily: 'Poppins_600SemiBold',
               fontSize: 32,
             }),
             dimensions.width

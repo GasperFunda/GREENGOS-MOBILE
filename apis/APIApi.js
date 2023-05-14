@@ -640,3 +640,114 @@ export const FetchFetchSubgardenByIdGET = ({
 
   return children({ loading, data, error, refetchFetchSubgardenById: refetch });
 };
+
+export const getPlannedActivitiesGETStatusAndText = Constants =>
+  fetch(
+    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/planner?order=id.asc`,
+    {
+      headers: {
+        Accept: 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+        'Content-Type': 'application/json',
+        apikey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+      },
+    }
+  ).then(async res => ({
+    status: res.status,
+    statusText: res.statusText,
+    text: await res.text(),
+  }));
+
+export const getPlannedActivitiesGET = Constants =>
+  getPlannedActivitiesGETStatusAndText(Constants).then(
+    ({ status, statusText, text }) => {
+      try {
+        return JSON.parse(text);
+      } catch (e) {
+        console.error(
+          [
+            'Failed to parse response text as JSON.',
+            `Error: ${e.message}`,
+            `Text: ${JSON.stringify(text)}`,
+          ].join('\n\n')
+        );
+      }
+    }
+  );
+
+export const useGetPlannedActivitiesGET = () => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+
+  return useFetch(
+    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/planner?order=id.asc`,
+    {
+      depends: [isFocused],
+      headers: {
+        Accept: 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+        'Content-Type': 'application/json',
+        apikey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+      },
+    }
+  );
+};
+
+export const FetchGetPlannedActivitiesGET = ({
+  children,
+  onData = () => {},
+  refetchInterval,
+}) => {
+  const Constants = GlobalVariables.useValues();
+  const isFocused = useIsFocused();
+  const prevIsFocused = usePrevious(isFocused);
+
+  const refetch = () => {};
+  const {
+    isLoading: loading,
+    data,
+    error,
+  } = useFetch(
+    `https://itboyrbpneggaqiewgem.supabase.co/rest/v1/planner?order=id.asc`,
+    {
+      depends: [isFocused],
+      headers: {
+        Accept: 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+        'Content-Type': 'application/json',
+        apikey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0Ym95cmJwbmVnZ2FxaWV3Z2VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODM5MTc4NjMsImV4cCI6MTk5OTQ5Mzg2M30.AcGc-CnMgplg9UxfZ_N34w1iEAL19z2FRc1iIl1YuhU',
+      },
+    }
+  );
+
+  React.useEffect(() => {
+    if (!prevIsFocused && isFocused) {
+      refetch();
+    }
+  }, [isFocused, prevIsFocused]);
+
+  React.useEffect(() => {
+    if (error) {
+      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error(error);
+    }
+  }, [error]);
+  React.useEffect(() => {
+    if (data) {
+      onData(data);
+    }
+  }, [data]);
+
+  return children({
+    loading,
+    data,
+    error,
+    refetchGetPlannedActivities: refetch,
+  });
+};
