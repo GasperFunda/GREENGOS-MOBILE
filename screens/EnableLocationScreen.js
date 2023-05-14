@@ -48,7 +48,15 @@ const EnableLocationScreen = props => {
             dimensions.width
           )}
         >
-          <Touchable>
+          <Touchable
+            onPress={() => {
+              try {
+                navigation.goBack();
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+          >
             <Icon size={24} name={'AntDesign/arrowleft'} />
           </Touchable>
         </View>
@@ -118,7 +126,7 @@ const EnableLocationScreen = props => {
         <Button
           onPress={() => {
             try {
-              navigation.navigate('RootNavigator');
+              navigation.navigate('MapViewScreen');
             } catch (err) {
               console.error(err);
             }

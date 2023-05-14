@@ -3,7 +3,6 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import * as APIApi from '../apis/APIApi.js';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
-import useIsOnline from '../utils/useIsOnline';
 import { MapMarker, MapView } from '@draftbit/maps';
 import {
   Button,
@@ -31,7 +30,6 @@ const GardenDetailViewScreen_6Fi5ZXwW = props => {
 
   const { theme } = props;
   const { navigation } = props;
-  const isOnline = useIsOnline();
 
   const mapViewwIaDAHIXRef = React.useRef();
 
@@ -562,14 +560,19 @@ const GardenDetailViewScreen_6Fi5ZXwW = props => {
                               resizeMode={'cover'}
                               source={{ uri: `${gardenListData?.image}` }}
                             >
+                              {/* Status label */}
                               <View
                                 style={StyleSheet.applyWidth(
-                                  { alignItems: 'flex-end', marginTop: 16 },
+                                  GlobalStyles.ViewStyles(theme)[
+                                    'Status label'
+                                  ],
                                   dimensions.width
                                 )}
                               >
                                 <>
-                                  {!isOnline ? null : (
+                                  {!(
+                                    gardenListData?.status === 'Active'
+                                  ) ? null : (
                                     <View
                                       style={StyleSheet.applyWidth(
                                         {
@@ -593,7 +596,6 @@ const GardenDetailViewScreen_6Fi5ZXwW = props => {
                                             color: theme.colors.surface,
                                             fontFamily: 'Poppins_600SemiBold',
                                             fontSize: 16,
-                                            textTransform: 'capitalize',
                                           },
                                           dimensions.width
                                         )}
@@ -601,7 +603,86 @@ const GardenDetailViewScreen_6Fi5ZXwW = props => {
                                         ellipsizeMode={'tail'}
                                         textBreakStrategy={'highQuality'}
                                       >
-                                        {gardenListData?.status}
+                                        {'Active'}
+                                      </Text>
+                                    </View>
+                                  )}
+                                </>
+                                <>
+                                  {!(
+                                    gardenListData?.status === 'Needs work'
+                                  ) ? null : (
+                                    <View
+                                      style={StyleSheet.applyWidth(
+                                        {
+                                          alignItems: 'center',
+                                          backgroundColor: 'rgb(210, 230, 35)',
+                                          borderBottomLeftRadius: 8,
+                                          borderTopLeftRadius: 8,
+                                          flexDirection: 'row',
+                                          paddingBottom: 4,
+                                          paddingLeft: 8,
+                                          paddingRight: 8,
+                                          paddingTop: 4,
+                                        },
+                                        dimensions.width
+                                      )}
+                                    >
+                                      <Text
+                                        style={StyleSheet.applyWidth(
+                                          {
+                                            color: theme.colors.surface,
+                                            fontFamily: 'Poppins_600SemiBold',
+                                            fontSize: 16,
+                                          },
+                                          dimensions.width
+                                        )}
+                                        allowFontScaling={true}
+                                        ellipsizeMode={'tail'}
+                                        textBreakStrategy={'highQuality'}
+                                      >
+                                        {'Needs work'}
+                                      </Text>
+                                    </View>
+                                  )}
+                                </>
+                                <>
+                                  {!(
+                                    gardenListData?.status === 'Empty'
+                                  ) ? null : (
+                                    <View
+                                      style={StyleSheet.applyWidth(
+                                        {
+                                          alignItems: 'center',
+                                          backgroundColor:
+                                            theme.colors[
+                                              'Peoplebit_Salmon_Red'
+                                            ],
+                                          borderBottomLeftRadius: 8,
+                                          borderTopLeftRadius: 8,
+                                          flexDirection: 'row',
+                                          paddingBottom: 4,
+                                          paddingLeft: 8,
+                                          paddingRight: 8,
+                                          paddingTop: 4,
+                                        },
+                                        dimensions.width
+                                      )}
+                                    >
+                                      <Text
+                                        style={StyleSheet.applyWidth(
+                                          {
+                                            color: theme.colors.surface,
+                                            fontFamily: 'Poppins_600SemiBold',
+                                            fontSize: 16,
+                                          },
+                                          dimensions.width
+                                        )}
+                                        allowFontScaling={true}
+                                        ellipsizeMode={'tail'}
+                                        textBreakStrategy={'highQuality'}
+                                      >
+                                        {'Empty'}
                                       </Text>
                                     </View>
                                   )}

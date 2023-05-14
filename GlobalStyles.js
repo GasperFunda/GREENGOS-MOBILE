@@ -4,6 +4,7 @@ import Breakpoints from './utils/Breakpoints';
 
 export const ViewStyles = theme =>
   StyleSheet.create({
+    'Add Location': { paddingLeft: 20, paddingRight: 20 },
     BackHeader: {
       alignItems: 'center',
       flexDirection: 'row',
@@ -24,6 +25,7 @@ export const ViewStyles = theme =>
       flexDirection: 'row',
       justifyContent: 'space-between',
     },
+    'Status label': { alignItems: 'flex-end', marginTop: 16 },
   });
 
 export const ButtonStyles = theme =>

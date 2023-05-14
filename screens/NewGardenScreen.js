@@ -199,7 +199,12 @@ const NewGardenScreen = props => {
             {/* Post Content */}
             <View
               style={StyleSheet.applyWidth(
-                { marginTop: 20, paddingLeft: 20, paddingRight: 20 },
+                {
+                  alignItems: 'flex-start',
+                  marginTop: 20,
+                  paddingLeft: 20,
+                  paddingRight: 20,
+                },
                 dimensions.width
               )}
             >
@@ -254,6 +259,14 @@ const NewGardenScreen = props => {
                     </Circle>
                   </View>
                 </Touchable>
+                <Image
+                  style={StyleSheet.applyWidth(
+                    { borderRadius: 5, height: 60, marginLeft: 15, width: 60 },
+                    dimensions.width
+                  )}
+                  resizeMode={'cover'}
+                  source={{ uri: 'https://picsum.photos/60' }}
+                />
               </View>
             </View>
             <Image
@@ -266,6 +279,87 @@ const NewGardenScreen = props => {
               }}
               resizeMode={'cover'}
             />
+            {/* Add Location */}
+            <View
+              style={StyleSheet.applyWidth(
+                GlobalStyles.ViewStyles(theme)['Add Location'],
+                dimensions.width
+              )}
+            >
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    borderBottomWidth: 1,
+                    borderColor: theme.colors['Custom Color_34'],
+                    height: 44,
+                    justifyContent: 'center',
+                  },
+                  dimensions.width
+                )}
+              >
+                <Touchable
+                  onPress={() => {
+                    try {
+                      navigation.navigate('EnableLocationScreen');
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                >
+                  <Text
+                    style={StyleSheet.applyWidth(
+                      {
+                        color: theme.colors['Custom Color'],
+                        fontFamily: 'Poppins_400Regular',
+                        fontSize: 12,
+                        lineHeight: 44,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    {'Add location'}
+                  </Text>
+                </Touchable>
+              </View>
+            </View>
+
+            <View
+              style={StyleSheet.applyWidth(
+                {
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  flexWrap: 'nowrap',
+                  justifyContent: 'flex-start',
+                  marginLeft: 20,
+                  marginRight: 20,
+                },
+                dimensions.width
+              )}
+            >
+              <Text
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
+                    marginRight: 5,
+                  }),
+                  dimensions.width
+                )}
+              >
+                {'Garden status:'}
+              </Text>
+              <Picker
+                style={StyleSheet.applyWidth(
+                  { height: 40, marginLeft: 5, width: 250 },
+                  dimensions.width
+                )}
+                options={pickerValue}
+                placeholder={'Select an option'}
+                leftIconMode={'inset'}
+                type={'solid'}
+                iconSize={24}
+                autoDismissKeyboard={true}
+              />
+            </View>
+
             <View
               style={StyleSheet.applyWidth(
                 {

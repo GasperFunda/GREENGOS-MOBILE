@@ -231,49 +231,6 @@ const NewSubgardenScreen = props => {
                 />
               </View>
             </View>
-            {/* Actions */}
-            <View
-              style={StyleSheet.applyWidth(
-                { paddingLeft: 20, paddingRight: 20 },
-                dimensions.width
-              )}
-            >
-              <View
-                style={StyleSheet.applyWidth(
-                  {
-                    borderBottomWidth: 1,
-                    borderColor: theme.colors['Custom Color_34'],
-                    height: 44,
-                    justifyContent: 'center',
-                  },
-                  dimensions.width
-                )}
-              >
-                <Touchable
-                  onPress={() => {
-                    try {
-                      navigation.navigate('EnableLocationScreen');
-                    } catch (err) {
-                      console.error(err);
-                    }
-                  }}
-                >
-                  <Text
-                    style={StyleSheet.applyWidth(
-                      {
-                        color: theme.colors['Custom Color'],
-                        fontFamily: 'Poppins_400Regular',
-                        fontSize: 12,
-                        lineHeight: 44,
-                      },
-                      dimensions.width
-                    )}
-                  >
-                    {'Add location'}
-                  </Text>
-                </Touchable>
-              </View>
-            </View>
 
             <View
               style={StyleSheet.applyWidth(
@@ -284,6 +241,7 @@ const NewSubgardenScreen = props => {
                   justifyContent: 'flex-start',
                   marginLeft: 20,
                   marginRight: 20,
+                  marginTop: 15,
                 },
                 dimensions.width
               )}
@@ -299,7 +257,10 @@ const NewSubgardenScreen = props => {
                 {'Subgarden status:'}
               </Text>
               <Picker
-                style={StyleSheet.applyWidth({ height: 40 }, dimensions.width)}
+                style={StyleSheet.applyWidth(
+                  { height: 40, width: 240 },
+                  dimensions.width
+                )}
                 options={pickerValue}
                 placeholder={'Select an option'}
                 leftIconMode={'inset'}
@@ -307,50 +268,6 @@ const NewSubgardenScreen = props => {
                 iconSize={24}
                 autoDismissKeyboard={true}
               />
-              <View
-                style={StyleSheet.applyWidth(
-                  {
-                    alignItems: 'center',
-                    flexDirection: 'row',
-                    flexWrap: 'nowrap',
-                    justifyContent: 'flex-start',
-                    marginLeft: 20,
-                    marginRight: 20,
-                  },
-                  dimensions.width
-                )}
-              >
-                <Text
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-                      marginRight: 5,
-                    }),
-                    dimensions.width
-                  )}
-                >
-                  {'Garden name:'}
-                </Text>
-                <TextInput
-                  onChangeText={newTextInputValue => {
-                    const textInputValue = newTextInputValue;
-                    try {
-                      setTextInputValue(newTextInputValue);
-                    } catch (err) {
-                      console.error(err);
-                    }
-                  }}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.TextInputStyles(theme)['Text Input'],
-                      { width: 300 }
-                    ),
-                    dimensions.width
-                  )}
-                  autoCapitalize={'none'}
-                  placeholder={'Enter a value...'}
-                  value={textInputValue}
-                />
-              </View>
             </View>
 
             <View

@@ -3,12 +3,27 @@ import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import { MapView } from '@draftbit/maps';
 import { Button, ScreenContainer, withTheme } from '@draftbit/ui';
+import { useIsFocused } from '@react-navigation/native';
 import { View, useWindowDimensions } from 'react-native';
 
 const MapViewScreen = props => {
   const dimensions = useWindowDimensions();
 
   const { theme } = props;
+  const { navigation } = props;
+
+  const isFocused = useIsFocused();
+  React.useEffect(() => {
+    try {
+      if (!isFocused) {
+        return;
+      }
+      navigation.goBack();
+      navigation.goBack();
+    } catch (err) {
+      console.error(err);
+    }
+  }, [isFocused]);
 
   const [switchValue, setSwitchValue] = React.useState(false);
   const [textInputValue, setTextInputValue] = React.useState('');
