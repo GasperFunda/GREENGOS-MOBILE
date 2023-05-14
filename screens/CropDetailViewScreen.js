@@ -308,7 +308,12 @@ const CropDetailViewScreen = props => {
                 >
                   <YoutubePlayer
                     style={StyleSheet.applyWidth(
-                      GlobalStyles.YoutubePlayerStyles(theme)['Youtube Player'],
+                      StyleSheet.compose(
+                        GlobalStyles.YoutubePlayerStyles(theme)[
+                          'Youtube Player'
+                        ],
+                        { width: '100%' }
+                      ),
                       dimensions.width
                     )}
                     videoId={(fetchData && fetchData[0])?.video_url}

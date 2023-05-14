@@ -249,7 +249,15 @@ const NewSubgardenScreen = props => {
                   dimensions.width
                 )}
               >
-                <Touchable>
+                <Touchable
+                  onPress={() => {
+                    try {
+                      navigation.navigate('EnableLocationScreen');
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                >
                   <Text
                     style={StyleSheet.applyWidth(
                       {
@@ -283,7 +291,7 @@ const NewSubgardenScreen = props => {
               <Text
                 style={StyleSheet.applyWidth(
                   StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-                    marginRight: 5,
+                    marginRight: 40,
                   }),
                   dimensions.width
                 )}
@@ -354,6 +362,7 @@ const NewSubgardenScreen = props => {
                   justifyContent: 'flex-start',
                   marginLeft: 20,
                   marginRight: 20,
+                  marginTop: 10,
                 },
                 dimensions.width
               )}
@@ -400,6 +409,7 @@ const NewSubgardenScreen = props => {
                   justifyContent: 'flex-start',
                   marginLeft: 20,
                   marginRight: 20,
+                  marginTop: 10,
                 },
                 dimensions.width
               )}
@@ -438,6 +448,15 @@ const NewSubgardenScreen = props => {
             <Spacer top={8} right={8} bottom={8} left={8} />
             {/* Post Now */}
             <Button
+              onPress={() => {
+                try {
+                  navigation.navigate('NewGardenScreen', {
+                    garden_id: props.route?.params?.garden_id ?? 1,
+                  });
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
               style={StyleSheet.applyWidth(
                 {
                   backgroundColor: theme.colors['App Green'],
@@ -453,7 +472,7 @@ const NewSubgardenScreen = props => {
                 },
                 dimensions.width
               )}
-              title={'Create Garden'}
+              title={'Create Subgarden'}
             />
           </ScrollView>
         )}

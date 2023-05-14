@@ -1,6 +1,8 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as APIApi from '../apis/APIApi.js';
+import * as IlwahjdkasdjilApi from '../apis/IlwahjdkasdjilApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import openImagePickerUtil from '../utils/openImagePicker';
@@ -30,11 +32,31 @@ import { Fetch } from 'react-request';
 
 const NewGardenScreen = props => {
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
 
   const { theme } = props;
   const { navigation } = props;
 
+  const isFocused = useIsFocused();
+  React.useEffect(() => {
+    const handler = async () => {
+      try {
+        if (!isFocused) {
+          return;
+        }
+        await IlwahjdkasdjilApi.imagePOST(Constants);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    handler();
+  }, [isFocused]);
+
   const [checkboxRowValue, setCheckboxRowValue] = React.useState('');
+  const [garden_name, setGarden_name] = React.useState('');
+  const [image, setImage] = React.useState('');
+  const [length, setLength] = React.useState('');
   const [numberInput2Value, setNumberInput2Value] = React.useState('');
   const [numberInputValue, setNumberInputValue] = React.useState('');
   const [pickerValue, setPickerValue] = React.useState([
@@ -50,75 +72,80 @@ const NewGardenScreen = props => {
   ]);
   const [textAreaValue, setTextAreaValue] = React.useState('');
   const [textInputValue, setTextInputValue] = React.useState('');
+  const [width, setWidth] = React.useState('');
 
   return (
     <ScreenContainer hasSafeArea={true} scrollable={false}>
       {/* Header */}
-      <View
-        style={StyleSheet.applyWidth(
-          {
-            alignItems: 'center',
-            flexDirection: 'row',
-            height: 48,
-            justifyContent: 'space-between',
-          },
-          dimensions.width
-        )}
-      >
-        {/* Back */}
-        <View
-          style={StyleSheet.applyWidth(
-            {
-              alignItems: 'center',
-              height: 48,
-              justifyContent: 'center',
-              width: 48,
-            },
-            dimensions.width
-          )}
-        >
-          <Touchable
-            onPress={() => {
-              try {
-                navigation.goBack();
-              } catch (err) {
-                console.error(err);
-              }
-            }}
+      <>
+        {popupVisible ? null : (
+          <View
+            style={StyleSheet.applyWidth(
+              {
+                alignItems: 'center',
+                flexDirection: 'row',
+                height: 48,
+                justifyContent: 'space-between',
+              },
+              dimensions.width
+            )}
           >
-            <Icon
-              size={24}
-              name={'Ionicons/arrow-back'}
-              color={theme.colors['Custom Color']}
-            />
-          </Touchable>
-        </View>
+            {/* Back */}
+            <View
+              style={StyleSheet.applyWidth(
+                {
+                  alignItems: 'center',
+                  height: 48,
+                  justifyContent: 'center',
+                  width: 48,
+                },
+                dimensions.width
+              )}
+            >
+              <Touchable
+                onPress={() => {
+                  try {
+                    navigation.goBack();
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+              >
+                <Icon
+                  size={24}
+                  name={'Ionicons/arrow-back'}
+                  color={theme.colors['Custom Color']}
+                />
+              </Touchable>
+            </View>
 
-        <Text
-          style={StyleSheet.applyWidth(
-            {
-              color: theme.colors['Custom Color'],
-              fontFamily: 'Poppins_500Medium',
-              fontSize: 20,
-              textAlign: 'center',
-            },
-            dimensions.width
-          )}
-        >
-          {'New Garden'}
-        </Text>
-        <View
-          style={StyleSheet.applyWidth(
-            {
-              alignItems: 'center',
-              height: 48,
-              justifyContent: 'center',
-              width: 48,
-            },
-            dimensions.width
-          )}
-        />
-      </View>
+            <Text
+              style={StyleSheet.applyWidth(
+                {
+                  color: theme.colors['Custom Color'],
+                  fontFamily: 'Poppins_500Medium',
+                  fontSize: 20,
+                  textAlign: 'center',
+                },
+                dimensions.width
+              )}
+            >
+              {'New Garden'}
+            </Text>
+            <View
+              style={StyleSheet.applyWidth(
+                {
+                  alignItems: 'center',
+                  height: 48,
+                  justifyContent: 'center',
+                  width: 48,
+                },
+                dimensions.width
+              )}
+            />
+          </View>
+        )}
+      </>
       <>
         {popupVisible ? null : (
           <ScrollView showsVerticalScrollIndicator={true} bounces={true}>
@@ -147,12 +174,15 @@ const NewGardenScreen = props => {
               </Text>
               <TextInput
                 onChangeText={newTextInputValue => {
-                  const textInputValue = newTextInputValue;
-                  try {
-                    setTextInputValue(newTextInputValue);
-                  } catch (err) {
-                    console.error(err);
-                  }
+                  const handler = async () => {
+                    try {
+                      setGarden_name(newTextInputValue);
+                      await IlwahjdkasdjilApi.imagePOST(Constants);
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  };
+                  handler();
                 }}
                 style={StyleSheet.applyWidth(
                   StyleSheet.compose(
@@ -161,7 +191,7 @@ const NewGardenScreen = props => {
                   ),
                   dimensions.width
                 )}
-                value={textInputValue}
+                value={garden_name}
                 autoCapitalize={'none'}
                 placeholder={'Enter a value...'}
               />
@@ -175,7 +205,11 @@ const NewGardenScreen = props => {
             >
               <View
                 style={StyleSheet.applyWidth(
-                  { alignItems: 'center', flexDirection: 'row' },
+                  {
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                  },
                   dimensions.width
                 )}
               >
@@ -183,7 +217,10 @@ const NewGardenScreen = props => {
                   onPress={() => {
                     const handler = async () => {
                       try {
-                        await openImagePickerUtil({});
+                        const imaage_raw = await openImagePickerUtil({});
+                        if (imaage_raw) {
+                          setImage(imaage_raw);
+                        }
                       } catch (err) {
                         console.error(err);
                       }
@@ -217,89 +254,18 @@ const NewGardenScreen = props => {
                     </Circle>
                   </View>
                 </Touchable>
-                <Image
-                  style={StyleSheet.applyWidth(
-                    { borderRadius: 5, height: 60, marginLeft: 15, width: 60 },
-                    dimensions.width
-                  )}
-                  resizeMode={'cover'}
-                  source={{ uri: 'https://picsum.photos/60' }}
-                />
               </View>
             </View>
-            {/* Actions */}
-            <View
+            <Image
               style={StyleSheet.applyWidth(
-                { paddingLeft: 20, paddingRight: 20 },
+                GlobalStyles.ImageStyles(theme)['Image'],
                 dimensions.width
               )}
-            >
-              <View
-                style={StyleSheet.applyWidth(
-                  {
-                    borderBottomWidth: 1,
-                    borderColor: theme.colors['Custom Color_34'],
-                    height: 44,
-                    justifyContent: 'center',
-                  },
-                  dimensions.width
-                )}
-              >
-                <Touchable>
-                  <Text
-                    style={StyleSheet.applyWidth(
-                      {
-                        color: theme.colors['Custom Color'],
-                        fontFamily: 'Poppins_400Regular',
-                        fontSize: 12,
-                        lineHeight: 44,
-                      },
-                      dimensions.width
-                    )}
-                  >
-                    {'Add location'}
-                  </Text>
-                </Touchable>
-              </View>
-            </View>
-
-            <View
-              style={StyleSheet.applyWidth(
-                {
-                  alignItems: 'center',
-                  flexDirection: 'row',
-                  flexWrap: 'nowrap',
-                  justifyContent: 'flex-start',
-                  marginLeft: 20,
-                  marginRight: 20,
-                },
-                dimensions.width
-              )}
-            >
-              <Text
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {
-                    marginRight: 5,
-                  }),
-                  dimensions.width
-                )}
-              >
-                {'Garden status:'}
-              </Text>
-              <Picker
-                style={StyleSheet.applyWidth(
-                  { height: 40, marginLeft: 5, width: 250 },
-                  dimensions.width
-                )}
-                options={pickerValue}
-                placeholder={'Select an option'}
-                leftIconMode={'inset'}
-                type={'solid'}
-                iconSize={24}
-                autoDismissKeyboard={true}
-              />
-            </View>
-
+              source={{
+                uri: 'https://static.draftbit.com/images/placeholder-image.png',
+              }}
+              resizeMode={'cover'}
+            />
             <View
               style={StyleSheet.applyWidth(
                 {
@@ -328,7 +294,7 @@ const NewGardenScreen = props => {
                 onChangeText={newNumberInput2Value => {
                   const numberInputValue = newNumberInput2Value;
                   try {
-                    setNumberInput2Value(newNumberInput2Value);
+                    setWidth(newNumberInput2Value);
                   } catch (err) {
                     console.error(err);
                   }
@@ -373,7 +339,7 @@ const NewGardenScreen = props => {
                 onChangeText={newNumberInputValue => {
                   const numberInputValue = newNumberInputValue;
                   try {
-                    setNumberInputValue(newNumberInputValue);
+                    setLength(newNumberInputValue);
                   } catch (err) {
                     console.error(err);
                   }
@@ -413,6 +379,15 @@ const NewGardenScreen = props => {
             />
             {/* Post Now */}
             <Button
+              onPress={() => {
+                try {
+                  navigation.navigate('BottomTabNavigator', {
+                    screen: 'GardenListScreen',
+                  });
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
               style={StyleSheet.applyWidth(
                 {
                   backgroundColor: theme.colors['App Green'],
@@ -441,6 +416,73 @@ const NewGardenScreen = props => {
             showsVerticalScrollIndicator={true}
             bounces={true}
           >
+            {/* Header */}
+            <View
+              style={StyleSheet.applyWidth(
+                {
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  height: 48,
+                  justifyContent: 'space-between',
+                },
+                dimensions.width
+              )}
+            >
+              {/* Back */}
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignItems: 'center',
+                    height: 48,
+                    justifyContent: 'center',
+                    width: 48,
+                  },
+                  dimensions.width
+                )}
+              >
+                <Touchable
+                  onPress={() => {
+                    try {
+                      setPopupVisible(false);
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                >
+                  <Icon
+                    size={24}
+                    name={'Ionicons/arrow-back'}
+                    color={theme.colors['Custom Color']}
+                  />
+                </Touchable>
+              </View>
+
+              <Text
+                style={StyleSheet.applyWidth(
+                  {
+                    color: theme.colors['Custom Color'],
+                    fontFamily: 'Poppins_500Medium',
+                    fontSize: 20,
+                    textAlign: 'center',
+                  },
+                  dimensions.width
+                )}
+              >
+                {'New Garden'}
+              </Text>
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignItems: 'center',
+                    height: 48,
+                    justifyContent: 'center',
+                    width: 48,
+                  },
+                  dimensions.width
+                )}
+              />
+            </View>
+
             <Text
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'], {

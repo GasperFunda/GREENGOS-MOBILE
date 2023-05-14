@@ -2,7 +2,6 @@ import React from 'react';
 import * as APIApi from '../apis/APIApi.js';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
-import useIsOnline from '../utils/useIsOnline';
 import {
   Divider,
   Icon,
@@ -28,7 +27,6 @@ const GardenListScreen = props => {
 
   const { theme } = props;
   const { navigation } = props;
-  const isOnline = useIsOnline();
 
   return (
     <ScreenContainer
@@ -169,7 +167,7 @@ const GardenListScreen = props => {
                               )}
                             >
                               <>
-                                {!isOnline ? null : (
+                                {!(listData?.status === 'Active') ? null : (
                                   <View
                                     style={StyleSheet.applyWidth(
                                       {
@@ -201,6 +199,79 @@ const GardenListScreen = props => {
                                       textBreakStrategy={'highQuality'}
                                     >
                                       {listData?.status}
+                                    </Text>
+                                  </View>
+                                )}
+                              </>
+                              <>
+                                {!(listData?.status === 'Needs work') ? null : (
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        alignItems: 'center',
+                                        backgroundColor: 'rgb(210, 230, 35)',
+                                        borderBottomLeftRadius: 8,
+                                        borderTopLeftRadius: 8,
+                                        flexDirection: 'row',
+                                        paddingBottom: 4,
+                                        paddingLeft: 8,
+                                        paddingRight: 8,
+                                        paddingTop: 4,
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    <Text
+                                      style={StyleSheet.applyWidth(
+                                        {
+                                          color: theme.colors.surface,
+                                          fontFamily: 'Poppins_600SemiBold',
+                                          fontSize: 16,
+                                        },
+                                        dimensions.width
+                                      )}
+                                      allowFontScaling={true}
+                                      ellipsizeMode={'tail'}
+                                      textBreakStrategy={'highQuality'}
+                                    >
+                                      {'Needs work'}
+                                    </Text>
+                                  </View>
+                                )}
+                              </>
+                              <>
+                                {!(listData?.status === 'Empty') ? null : (
+                                  <View
+                                    style={StyleSheet.applyWidth(
+                                      {
+                                        alignItems: 'center',
+                                        backgroundColor:
+                                          theme.colors['Peoplebit_Salmon_Red'],
+                                        borderBottomLeftRadius: 8,
+                                        borderTopLeftRadius: 8,
+                                        flexDirection: 'row',
+                                        paddingBottom: 4,
+                                        paddingLeft: 8,
+                                        paddingRight: 8,
+                                        paddingTop: 4,
+                                      },
+                                      dimensions.width
+                                    )}
+                                  >
+                                    <Text
+                                      style={StyleSheet.applyWidth(
+                                        {
+                                          color: theme.colors.surface,
+                                          fontFamily: 'Poppins_600SemiBold',
+                                          fontSize: 16,
+                                        },
+                                        dimensions.width
+                                      )}
+                                      allowFontScaling={true}
+                                      ellipsizeMode={'tail'}
+                                      textBreakStrategy={'highQuality'}
+                                    >
+                                      {'Empty'}
                                     </Text>
                                   </View>
                                 )}

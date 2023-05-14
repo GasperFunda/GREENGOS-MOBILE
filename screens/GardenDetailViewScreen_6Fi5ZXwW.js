@@ -1,7 +1,6 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as APIApi from '../apis/APIApi.js';
-import * as WeatherAPIApi from '../apis/WeatherAPIApi.js';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useIsOnline from '../utils/useIsOnline';
@@ -49,7 +48,9 @@ const GardenDetailViewScreen_6Fi5ZXwW = props => {
       {/* BackHeader */}
       <View
         style={StyleSheet.applyWidth(
-          GlobalStyles.ViewStyles(theme)['BackHeader'],
+          StyleSheet.compose(GlobalStyles.ViewStyles(theme)['BackHeader'], {
+            width: '100%',
+          }),
           dimensions.width
         )}
       >
@@ -443,7 +444,9 @@ const GardenDetailViewScreen_6Fi5ZXwW = props => {
       <Button
         onPress={() => {
           try {
-            navigation.navigate('NewSubgardenScreen');
+            navigation.navigate('NewSubgardenScreen', {
+              garden_id: props.route?.params?.garden_id ?? 1,
+            });
           } catch (err) {
             console.error(err);
           }
@@ -590,6 +593,7 @@ const GardenDetailViewScreen_6Fi5ZXwW = props => {
                                             color: theme.colors.surface,
                                             fontFamily: 'Poppins_600SemiBold',
                                             fontSize: 16,
+                                            textTransform: 'capitalize',
                                           },
                                           dimensions.width
                                         )}

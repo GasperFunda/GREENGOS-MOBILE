@@ -25,13 +25,23 @@
       "bundleIdentifier": "com.draftbit.untitledapp",
       "supportsTablet": null,
       "buildNumber": "1.0.0",
-      "infoPlist": {},
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "This app uses the location to create a list of local services.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "This app uses the location to create a list of local services."
+      },
       "usesIcloudStorage": false
     },
     "android": {
       "versionCode": 1,
       "package": "com.draftbit.untitledapp",
-      "permissions": []
+      "permissions": [
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_SETTINGS",
+        "ACCESS_BACKGROUND_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "CAMERA",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
     },
     "web": {
       "display": null,
